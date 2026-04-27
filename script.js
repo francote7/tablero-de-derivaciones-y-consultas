@@ -94,8 +94,19 @@ function procesarDatos() {
 
     const total = sAmb + sInt + sTele;
     document.getElementById('kpi-total').innerText = total;
-    const pctAfiliados = ((total / TOTAL_AFILIADOS) * 100).toFixed(2);
-    document.getElementById('kpi-total-pct').innerText = `(${pctAfiliados}%)`;
+
+    // LÓGICA PARA MOSTRAR/OCULTAR EL PORCENTAJE DEL VOLUMEN TOTAL
+    const pctContainer = document.getElementById('kpi-total-pct-container');
+    if (currentMes === 'Total') {
+        // Se oculta en el total 2026
+        pctContainer.style.display = 'none';
+    } else {
+        // Se muestra en los meses individuales y se calcula el %
+        pctContainer.style.display = 'flex';
+        const pctAfiliados = ((total / TOTAL_AFILIADOS) * 100).toFixed(2);
+        document.getElementById('kpi-total-pct').innerText = `(${pctAfiliados}%)`;
+    }
+
     document.getElementById('kpi-amb').innerText = sAmb;
     document.getElementById('kpi-int').innerText = sInt;
     document.getElementById('kpi-tele').innerText = sTele;
