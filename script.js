@@ -23,6 +23,7 @@ const dataEstricta = [
     { mes: 'Enero', region: 'Buenos Aires', inst: 'Hospital Garrahan', amb: 1, int: 1, tele: 0, ord: 0 },
     { mes: 'Enero', region: 'Buenos Aires', inst: 'Hospital Italiano', amb: 20, int: 1, tele: 1, ord: 0 },
     { mes: 'Enero', region: 'Buenos Aires', inst: 'Sanatorio Guemes', amb: 1, int: 0, tele: 0, ord: 0 },
+    
     { mes: 'Febrero', region: 'Córdoba', inst: 'Centro Kuspide', amb: 1, int: 0, tele: 0, ord: 0 },
     { mes: 'Febrero', region: 'Córdoba', inst: 'Reyes-Giobellina', amb: 38, int: 6, tele: 0, ord: 66 },
     { mes: 'Febrero', region: 'Córdoba', inst: 'Fecundart', amb: 1, int: 0, tele: 0, ord: 0 },
@@ -35,6 +36,7 @@ const dataEstricta = [
     { mes: 'Febrero', region: 'Córdoba', inst: 'Sanatorio Morra', amb: 0, int: 1, tele: 0, ord: 3 },
     { mes: 'Febrero', region: 'Buenos Aires', inst: 'Hospital Garrahan', amb: 2, int: 0, tele: 0, ord: 0 },
     { mes: 'Febrero', region: 'Buenos Aires', inst: 'Hospital Italiano', amb: 20, int: 4, tele: 0, ord: 0 },
+    
     { mes: 'Marzo', region: 'Córdoba', inst: 'Centro Kuspide', amb: 1, int: 1, tele: 0, ord: 0 },
     { mes: 'Marzo', region: 'Córdoba', inst: 'Reyes-Giobellina', amb: 60, int: 3, tele: 0, ord: 54 },
     { mes: 'Marzo', region: 'Córdoba', inst: 'Fecundart', amb: 4, int: 0, tele: 0, ord: 0 },
@@ -45,7 +47,25 @@ const dataEstricta = [
     { mes: 'Marzo', region: 'Córdoba', inst: 'Sanatorio Allende', amb: 176, int: 39, tele: 0, ord: 325 },
     { mes: 'Marzo', region: 'Córdoba', inst: 'Sanatorio Mayo', amb: 14, int: 0, tele: 0, ord: 63 },
     { mes: 'Marzo', region: 'Buenos Aires', inst: 'Hospital Italiano', amb: 18, int: 4, tele: 0, ord: 0 },
-    { mes: 'Marzo', region: 'Buenos Aires', inst: 'Sanatorio Guemes', amb: 1, int: 0, tele: 0, ord: 0 }
+    { mes: 'Marzo', region: 'Buenos Aires', inst: 'Sanatorio Guemes', amb: 1, int: 0, tele: 0, ord: 0 },
+    
+    // --- NUEVOS DATOS DE ABRIL ---
+    { mes: 'Abril', region: 'Córdoba', inst: 'Centro Kuspide', amb: 7, int: 1, tele: 0, ord: 0 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Clinica Central de Ojos', amb: 1, int: 0, tele: 0, ord: 0 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Reyes-Giobellina', amb: 64, int: 3, tele: 0, ord: 46 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Clínica Velez Sarsfield', amb: 1, int: 0, tele: 0, ord: 0 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Fecundart', amb: 2, int: 0, tele: 0, ord: 0 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Fund. Bulimia y Anorexia', amb: 0, int: 0, tele: 0, ord: 0 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Hospital Privado', amb: 358, int: 109, tele: 1, ord: 1106 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Instituto Oulton', amb: 80, int: 7, tele: 0, ord: 64 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Instituto Radioterapia', amb: 9, int: 2, tele: 0, ord: 0 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Nascentis', amb: 6, int: 0, tele: 0, ord: 0 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Sanatorio Allende', amb: 169, int: 67, tele: 0, ord: 340 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Sanatorio Mayo', amb: 13, int: 2, tele: 0, ord: 63 },
+    { mes: 'Abril', region: 'Córdoba', inst: 'Sanatorio Morra', amb: 0, int: 2, tele: 0, ord: 3 },
+    { mes: 'Abril', region: 'Buenos Aires', inst: 'Hospital Garrahan', amb: 2, int: 1, tele: 0, ord: 0 },
+    { mes: 'Abril', region: 'Buenos Aires', inst: 'Hospital Italiano', amb: 13, int: 3, tele: 0, ord: 0 },
+    { mes: 'Abril', region: 'Buenos Aires', inst: 'Sanatorio Guemes', amb: 2, int: 0, tele: 0, ord: 0 }
 ];
 
 let chartInstObj = null, chartDxObj = null, chartOrdenesObj = null;
