@@ -136,21 +136,197 @@ function procesarDatos() {
     // LÓGICA PARA MOSTRAR/OCULTAR EL PORCENTAJE DEL VOLUMEN TOTAL
     const pctContainer = document.getElementById('kpi-total-pct-container');
     if (currentMes === 'Total') {
-        // Se oculta en el total 2026
         pctContainer.style.display = 'none';
     } else {
-        // Se muestra en los meses individuales y se calcula el %
         pctContainer.style.display = 'flex';
         const pctAfiliados = ((total / TOTAL_AFILIADOS) * 100).toFixed(2);
         document.getElementById('kpi-total-pct').innerText = `(${pctAfiliados}%)`;
     }
 
+    // ── INDICADOR TENDENCIA vs MES ANTERIOR ──────────────────────────────────
+    const trendEl = document.getElementById('kpi-total-trend');
+    if (currentMes !== 'Total') {
+        const idxMesActual = MESES_ORDEN.indexOf(currentMes);
+        const mesPrev = MESES_ORDEN[idxMesActual - 1];
+        const trendRow = document.getElementById('kpi-total-trend-row');
+        trendRow.style.display = 'flex';
+        if (mesPrev && dataEstricta.some(d => d.mes === mesPrev)) {
+            let datosPrev = dataEstricta.filter(d => d.mes === mesPrev);
+            if (currentDestino !== 'General') datosPrev = datosPrev.filter(d => d.region === currentDestino);
+            const totalPrev = datosPrev.reduce((s, d) => s + d.amb + d.int + d.tele, 0);
+            const diff = total - totalPrev;
+            const pct = totalPrev > 0 ? ((diff / totalPrev) * 100).toFixed(1) : '—';
+            if (diff > 0) {
+                trendEl.className = 'kpi-trend kpi-trend-up';
+                trendEl.innerHTML = `<i class="fas fa-arrow-trend-up"></i> +${diff} (${pct}%) vs ${mesPrev}`;
+            } else if (diff < 0) {
+                trendEl.className = 'kpi-trend kpi-trend-down';
+                trendEl.innerHTML = `<i class="fas fa-arrow-trend-down"></i> ${diff} (${pct}%) vs ${mesPrev}`;
+            } else {
+                trendEl.className = 'kpi-trend kpi-trend-neutral';
+                trendEl.innerHTML = `<i class="fas fa-minus"></i> Sin cambio vs ${mesPrev}`;
+            }
+        } else {
+            trendEl.className = 'kpi-trend kpi-trend-neutral';
+            trendEl.innerHTML = `<i class="fas fa-minus"></i> Primer mes registrado`;
+        }
+    } else {
+        document.getElementById('kpi-total-trend-row').style.display = 'none';
+    }
+
+    // ── BADGE ALERTA VOLUMEN (siempre activo) ─────────────────────────────────
+    const volAlertEl = document.getElementById('kpi-total-vol-alert');
+    if (total > 450) {
+        volAlertEl.style.display = 'flex';
+        volAlertEl.className = 'kpi-balance-alert kpi-balance-warn mt-2';
+        volAlertEl.innerHTML = `<i class="fas fa-circle-exclamation"></i> Alto volumen > 450`;
+    } else if (total >= 401) {
+        volAlertEl.style.display = 'flex';
+        volAlertEl.className = 'kpi-balance-alert kpi-balance-mid mt-2';
+        volAlertEl.innerHTML = `<i class="fas fa-triangle-exclamation"></i> Volumen en alerta`;
+    } else {
+        volAlertEl.style.display = 'none';
+    }
+
     document.getElementById('kpi-amb').innerText = sAmb;
     document.getElementById('kpi-int').innerText = sInt;
     document.getElementById('kpi-tele').innerText = sTele;
-    document.getElementById('kpi-amb-pct').innerText = `(${((sAmb/total)*100 || 0).toFixed(1)}%)`;
-    document.getElementById('kpi-int-pct').innerText = `(${((sInt/total)*100 || 0).toFixed(1)}%)`;
+
+    const ambPct = (sAmb / total * 100) || 0;
+    const intPct = (sInt / total * 100) || 0;
+    document.getElementById('kpi-amb-pct').innerText = `(${ambPct.toFixed(1)}%)`;
+    document.getElementById('kpi-int-pct').innerText = `(${intPct.toFixed(1)}%)`;
     document.getElementById('kpi-tele-pct').innerText = `(${((sTele/total)*100 || 0).toFixed(1)}%)`;
+
+    // ── INDICADOR DESEQUILIBRIO AMB / INT ────────────────────────────────────
+    // Referencia: 80% amb / 20% int. Tolerancia ±8pp antes de alertar.
+    const TOLERANCIA = 8;
+    const ambAlertEl = document.getElementById('kpi-amb-balance-alert');
+    const intAlertEl = document.getElementById('kpi-int-balance-alert');
+    if (currentMes !== 'Total' && total > 0) {
+        const ambDesvio = ambPct - 80; // positivo = demasiado amb, negativo = poco amb
+        const intDesvio = intPct - 20; // positivo = demasiado int, negativo = poca int
+        if (Math.abs(ambDesvio) > TOLERANCIA) {
+            ambAlertEl.style.display = 'flex';
+            if (ambDesvio > 0) {
+                ambAlertEl.className = 'kpi-balance-alert kpi-balance-ok';
+                ambAlertEl.innerHTML = `<i class="fas fa-check-circle"></i> Alta proporción ambulatoria`;
+            } else {
+                ambAlertEl.className = 'kpi-balance-alert kpi-balance-warn';
+                ambAlertEl.innerHTML = `<i class="fas fa-triangle-exclamation"></i> Proporción ambulatoria baja`;
+            }
+        } else {
+            ambAlertEl.style.display = 'none';
+        }
+        if (Math.abs(intDesvio) > TOLERANCIA) {
+            intAlertEl.style.display = 'flex';
+            if (intDesvio > 0) {
+                intAlertEl.className = 'kpi-balance-alert kpi-balance-warn';
+                intAlertEl.innerHTML = `<i class="fas fa-triangle-exclamation"></i> Internación elevada`;
+            } else {
+                intAlertEl.className = 'kpi-balance-alert kpi-balance-ok';
+                intAlertEl.innerHTML = `<i class="fas fa-check-circle"></i> Internación baja`;
+            }
+        } else {
+            intAlertEl.style.display = 'none';
+        }
+    } else {
+        ambAlertEl.style.display = 'none';
+        intAlertEl.style.display = 'none';
+    }
+
+    // ── INDICADOR TENDENCIA AMB e INT vs MES ANTERIOR ────────────────────────
+    const ambTrendEl = document.getElementById('kpi-amb-trend');
+    const intTrendEl = document.getElementById('kpi-int-trend');
+    if (currentMes !== 'Total') {
+        const idxMesActual = MESES_ORDEN.indexOf(currentMes);
+        const mesPrev = MESES_ORDEN[idxMesActual - 1];
+        document.getElementById('kpi-amb-trend-row').style.display = 'flex';
+        document.getElementById('kpi-int-trend-row').style.display = 'flex';
+
+        if (mesPrev && dataEstricta.some(d => d.mes === mesPrev)) {
+            let datosPrev = dataEstricta.filter(d => d.mes === mesPrev);
+            if (currentDestino !== 'General') datosPrev = datosPrev.filter(d => d.region === currentDestino);
+            const ambPrev = datosPrev.reduce((s, d) => s + d.amb, 0);
+            const intPrev = datosPrev.reduce((s, d) => s + d.int, 0);
+
+            // Ambulatorias: subir = rojo, bajar = verde
+            const diffAmb = sAmb - ambPrev;
+            const pctAmb = ambPrev > 0 ? ((diffAmb / ambPrev) * 100).toFixed(1) : '—';
+            if (diffAmb > 0) {
+                ambTrendEl.className = 'kpi-trend kpi-trend-up';
+                ambTrendEl.innerHTML = `<i class="fas fa-arrow-trend-up"></i> +${diffAmb} (${pctAmb}%) vs ${mesPrev}`;
+            } else if (diffAmb < 0) {
+                ambTrendEl.className = 'kpi-trend kpi-trend-down';
+                ambTrendEl.innerHTML = `<i class="fas fa-arrow-trend-down"></i> ${diffAmb} (${pctAmb}%) vs ${mesPrev}`;
+            } else {
+                ambTrendEl.className = 'kpi-trend kpi-trend-neutral';
+                ambTrendEl.innerHTML = `<i class="fas fa-minus"></i> Sin cambio vs ${mesPrev}`;
+            }
+
+            // Internación: subir = rojo, bajar = verde
+            const diffInt = sInt - intPrev;
+            const pctInt = intPrev > 0 ? ((diffInt / intPrev) * 100).toFixed(1) : '—';
+            if (diffInt > 0) {
+                intTrendEl.className = 'kpi-trend kpi-trend-up';
+                intTrendEl.innerHTML = `<i class="fas fa-arrow-trend-up"></i> +${diffInt} (${pctInt}%) vs ${mesPrev}`;
+            } else if (diffInt < 0) {
+                intTrendEl.className = 'kpi-trend kpi-trend-down';
+                intTrendEl.innerHTML = `<i class="fas fa-arrow-trend-down"></i> ${diffInt} (${pctInt}%) vs ${mesPrev}`;
+            } else {
+                intTrendEl.className = 'kpi-trend kpi-trend-neutral';
+                intTrendEl.innerHTML = `<i class="fas fa-minus"></i> Sin cambio vs ${mesPrev}`;
+            }
+        } else {
+            ambTrendEl.className = 'kpi-trend kpi-trend-neutral';
+            ambTrendEl.innerHTML = `<i class="fas fa-minus"></i> Primer mes registrado`;
+            intTrendEl.className = 'kpi-trend kpi-trend-neutral';
+            intTrendEl.innerHTML = `<i class="fas fa-minus"></i> Primer mes registrado`;
+        }
+    } else {
+        document.getElementById('kpi-amb-trend-row').style.display = 'none';
+        document.getElementById('kpi-int-trend-row').style.display = 'none';
+    }
+
+    // ── COLOR SEMÁFORO VOLUMEN TOTAL (siempre activo) ────────────────────────
+    const kpiTotalEl  = document.getElementById('kpi-total');
+    const kpiTotalCard = document.getElementById('kpi-total-card');
+    if (total > 450) {
+        kpiTotalEl.style.color = '#ef4444';
+        kpiTotalCard.style.borderLeftColor = '#ef4444';
+    } else if (total >= 401) {
+        kpiTotalEl.style.color = '#f59e0b';
+        kpiTotalCard.style.borderLeftColor = '#f59e0b';
+    } else if (total >= 1) {
+        kpiTotalEl.style.color = '#22c55e';
+        kpiTotalCard.style.borderLeftColor = '#22c55e';
+    } else {
+        kpiTotalEl.style.color = '';
+        kpiTotalCard.style.borderLeftColor = '';
+    }
+
+    // ── COLOR SEMÁFORO INTERNACIÓN (siempre activo) ───────────────────────────
+    const kpiIntEl   = document.getElementById('kpi-int');
+    const kpiIntCard = document.getElementById('kpi-int-card');
+    if (total > 0) {
+        if (intPct > 20) {
+            kpiIntEl.style.color = '#ef4444';
+            kpiIntCard.style.borderLeftColor = '#ef4444';
+        } else if (intPct > 15) {
+            kpiIntEl.style.color = '#f59e0b';
+            kpiIntCard.style.borderLeftColor = '#f59e0b';
+        } else if (intPct >= 1) {
+            kpiIntEl.style.color = '#22c55e';
+            kpiIntCard.style.borderLeftColor = '#22c55e';
+        } else {
+            kpiIntEl.style.color = '';
+            kpiIntCard.style.borderLeftColor = '';
+        }
+    } else {
+        kpiIntEl.style.color = '';
+        kpiIntCard.style.borderLeftColor = '';
+    }
+
     document.getElementById('kpi-ordenes-total').innerText = sOrd;
     document.getElementById('kpi-ordenes-prom').innerText = sAmb > 0 ? (sOrd/sAmb).toFixed(2) : "0.00";
 
@@ -158,6 +334,7 @@ function procesarDatos() {
     renderChartInst(labels, labels.map(l => instMap[l].amb), labels.map(l => instMap[l].int));
     renderChartOrdenes(labels, labels.map(l => instMap[l].amb > 0 ? (instMap[l].ord/instMap[l].amb).toFixed(2) : 0));
     renderChartDx(total);
+    renderMonthlyCards();
 }
 
 function renderChartOrdenes(labels, data) {
@@ -218,6 +395,100 @@ function renderChartDx(total) {
             cutout: '60%'
         }
     });
+}
+
+const MESES_ORDEN = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+const UMBRAL_ALERTA = 450;
+
+function renderMonthlyCards() {
+    const section = document.getElementById('monthly-cards-section');
+    const grid = document.getElementById('monthly-cards-grid');
+
+    if (currentMes !== 'Total') {
+        section.style.display = 'none';
+        return;
+    }
+    section.style.display = 'block';
+
+    const mesesPresentes = [...new Set(dataEstricta.map(d => d.mes))];
+    mesesPresentes.sort((a, b) => MESES_ORDEN.indexOf(a) - MESES_ORDEN.indexOf(b));
+
+    const totalesPorMes = mesesPresentes.map(mes => {
+        let datos = dataEstricta.filter(d => d.mes === mes);
+        if (currentDestino !== 'General') datos = datos.filter(d => d.region === currentDestino);
+        const amb = datos.reduce((s, d) => s + d.amb, 0);
+        const int = datos.reduce((s, d) => s + d.int, 0);
+        const tele = datos.reduce((s, d) => s + d.tele, 0);
+        const total = amb + int + tele;
+        const intPct = total > 0 ? (int / total * 100) : 0;
+        return { mes, total, amb, int, tele, intPct };
+    });
+
+    // Helper: color semáforo internación
+    function intColor(intPct) {
+        if (intPct > 20) return '#ef4444';
+        if (intPct > 15) return '#f59e0b';
+        if (intPct >= 1) return '#22c55e';
+        return '#94a3b8';
+    }
+
+    // Helper: trend badge HTML (rojo sube, verde baja)
+    function trendBadge(diff, pct, label) {
+        if (diff > 0) return `<span class="mc-trend mc-trend-up"><i class="fas fa-arrow-trend-up"></i> +${diff} (${pct}%)</span>`;
+        if (diff < 0) return `<span class="mc-trend mc-trend-down"><i class="fas fa-arrow-trend-down"></i> ${diff} (${pct}%)</span>`;
+        return `<span class="mc-trend mc-trend-neutral"><i class="fas fa-minus"></i> Sin cambio</span>`;
+    }
+
+    grid.innerHTML = totalesPorMes.map((item, idx) => {
+        const prev = idx > 0 ? totalesPorMes[idx - 1] : null;
+        const isAlert = item.total >= UMBRAL_ALERTA;
+        const borderColor = isAlert ? '#ef4444' : '#00a896';
+        const color = intColor(item.intPct);
+
+        // Tendencia total
+        let totalTrendHTML = `<span class="mc-trend mc-trend-neutral"><i class="fas fa-minus"></i> Primer mes</span>`;
+        if (prev) {
+            const diff = item.total - prev.total;
+            const pct = prev.total > 0 ? ((diff / prev.total) * 100).toFixed(1) : '—';
+            totalTrendHTML = trendBadge(diff, pct);
+        }
+
+        // Tendencia amb
+        let ambTrendHTML = '';
+        let intTrendHTML = '';
+        if (prev) {
+            const dAmb = item.amb - prev.amb;
+            const pAmb = prev.amb > 0 ? ((dAmb / prev.amb) * 100).toFixed(1) : '—';
+            ambTrendHTML = trendBadge(dAmb, pAmb);
+
+            const dInt = item.int - prev.int;
+            const pInt = prev.int > 0 ? ((dInt / prev.int) * 100).toFixed(1) : '—';
+            intTrendHTML = trendBadge(dInt, pInt);
+        }
+
+        const alertBadge = isAlert
+            ? `<div class="alert-badge"><i class="fas fa-circle-exclamation"></i> Alto volumen</div>`
+            : '';
+
+        return `
+        <div class="monthly-card ${isAlert ? 'alert' : ''}" style="border-top-color:${borderColor};">
+            <div class="month-label">${item.mes}</div>
+            <div class="month-total" style="color:${isAlert ? '#ef4444' : '#1e293b'};">${item.total}</div>
+            <div class="month-indicator">${totalTrendHTML}</div>
+            ${alertBadge}
+            <div class="mc-divider"></div>
+            <div class="mc-sub-row">
+                <span class="mc-sub-label"><i class="fas fa-walking" style="color:#00a896"></i> Amb.</span>
+                <span class="mc-sub-val">${item.amb}</span>
+                ${ambTrendHTML ? `<span class="mc-sub-trend">${ambTrendHTML}</span>` : ''}
+            </div>
+            <div class="mc-sub-row">
+                <span class="mc-sub-label"><i class="fas fa-bed" style="color:${color}"></i> Int.</span>
+                <span class="mc-sub-val" style="color:${color};font-weight:800;">${item.int} <span style="font-size:0.6rem;font-weight:600;">(${item.intPct.toFixed(1)}%)</span></span>
+                ${intTrendHTML ? `<span class="mc-sub-trend">${intTrendHTML}</span>` : ''}
+            </div>
+        </div>`;
+    }).join('');
 }
 
 window.onload = () => procesarDatos();
