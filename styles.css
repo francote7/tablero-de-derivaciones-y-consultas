@@ -37,3 +37,170 @@ body {
     border-color: #00a896; 
     color: #00a896; 
 }
+
+/* Indicadores de tendencia en KPI cards */
+.kpi-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+}
+.kpi-trend-up {
+    background-color: #fef2f2;
+    color: #ef4444;
+}
+.kpi-trend-down {
+    background-color: #f0fdf4;
+    color: #22c55e;
+}
+.kpi-trend-neutral {
+    background-color: #f8fafc;
+    color: #94a3b8;
+}
+
+/* Indicadores de balance amb/int */
+.kpi-balance-alert {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.kpi-balance-warn {
+    background-color: #fef2f2;
+    color: #ef4444;
+}
+.kpi-balance-mid {
+    background-color: #fffbeb;
+    color: #f59e0b;
+}
+.kpi-balance-ok {
+    background-color: #f0fdf4;
+    color: #22c55e;
+}
+.monthly-card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 2px 12px -2px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0;
+    border-top: 4px solid #00a896;
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: default;
+}
+.monthly-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -4px rgba(0,0,0,0.10);
+}
+.monthly-card.alert {
+    border-top-color: #f87171;
+    background: linear-gradient(135deg, #fff 80%, #fff5f5 100%);
+}
+.monthly-card .month-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #94a3b8;
+    margin-bottom: 0.35rem;
+}
+.monthly-card .month-total {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #1e293b;
+}
+.monthly-card.alert .month-total {
+    color: #ef4444;
+}
+.monthly-card .month-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+.monthly-card .trend-up {
+    color: #22c55e;
+}
+.monthly-card .trend-down {
+    color: #f87171;
+}
+.monthly-card .trend-neutral {
+    color: #94a3b8;
+}
+.monthly-card .alert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background-color: #fef2f2;
+    color: #ef4444;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.monthly-card .sub-breakdown {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+    font-size: 0.65rem;
+    color: #94a3b8;
+    font-weight: 600;
+}
+.monthly-card .sub-breakdown span {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+/* Sub-rows amb/int en tarjetas mensuales */
+.mc-divider {
+    height: 1px;
+    background: #f1f5f9;
+    margin: 0.6rem 0 0.4rem;
+}
+.mc-sub-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.3rem;
+    flex-wrap: wrap;
+}
+.mc-sub-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #94a3b8;
+    min-width: 2.5rem;
+}
+.mc-sub-val {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #334155;
+}
+.mc-sub-trend {
+    margin-left: auto;
+}
+.mc-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.1rem 0.4rem;
+    border-radius: 999px;
+}
+.mc-trend-up   { background: #fef2f2; color: #ef4444; }
+.mc-trend-down { background: #f0fdf4; color: #22c55e; }
+.mc-trend-neutral { background: #f8fafc; color: #94a3b8; }
