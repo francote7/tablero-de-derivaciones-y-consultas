@@ -174,9 +174,27 @@ function procesarDatos() {
         document.getElementById('kpi-total-trend-row').style.display = 'none';
     }
 
-    // ── BADGE ALERTA VOLUMEN (siempre activo) ─────────────────────────────────
+    // ── BADGE ALERTA VOLUMEN ─────────────────────────────────────────────────
     const volAlertEl = document.getElementById('kpi-total-vol-alert');
-    if (total > 450) {
+    if (currentMes === 'Total' && currentDestino === 'General') {
+        const REF_ANUAL = 5400;
+        const pctAnual = total / REF_ANUAL * 100;
+        if (pctAnual > 95) {
+            volAlertEl.style.display = 'flex';
+            volAlertEl.className = 'kpi-balance-alert kpi-balance-warn mt-2';
+            volAlertEl.innerHTML = `<i class="fas fa-circle-exclamation"></i> ${pctAnual.toFixed(1)}% del objetivo anual`;
+        } else if (pctAnual >= 81) {
+            volAlertEl.style.display = 'flex';
+            volAlertEl.className = 'kpi-balance-alert kpi-balance-mid mt-2';
+            volAlertEl.innerHTML = `<i class="fas fa-triangle-exclamation"></i> ${pctAnual.toFixed(1)}% del objetivo anual`;
+        } else if (total >= 1) {
+            volAlertEl.style.display = 'flex';
+            volAlertEl.className = 'kpi-balance-alert kpi-balance-ok mt-2';
+            volAlertEl.innerHTML = `<i class="fas fa-check-circle"></i> ${pctAnual.toFixed(1)}% del objetivo anual`;
+        } else {
+            volAlertEl.style.display = 'none';
+        }
+    } else if (total > 450) {
         volAlertEl.style.display = 'flex';
         volAlertEl.className = 'kpi-balance-alert kpi-balance-warn mt-2';
         volAlertEl.innerHTML = `<i class="fas fa-circle-exclamation"></i> Alto volumen > 450`;
@@ -288,22 +306,34 @@ function procesarDatos() {
         document.getElementById('kpi-int-trend-row').style.display = 'none';
     }
 
-    // ── COLOR SEMÁFORO VOLUMEN TOTAL (siempre activo) ────────────────────────
-    const kpiTotalEl  = document.getElementById('kpi-total');
+    // ── COLOR SEMÁFORO VOLUMEN TOTAL ──────────────────────────────────────────
+    const kpiTotalEl   = document.getElementById('kpi-total');
     const kpiTotalCard = document.getElementById('kpi-total-card');
-    if (total > 450) {
-        kpiTotalEl.style.color = '#ef4444';
-        kpiTotalCard.style.borderLeftColor = '#ef4444';
-    } else if (total >= 401) {
-        kpiTotalEl.style.color = '#f59e0b';
-        kpiTotalCard.style.borderLeftColor = '#f59e0b';
-    } else if (total >= 1) {
-        kpiTotalEl.style.color = '#22c55e';
-        kpiTotalCard.style.borderLeftColor = '#22c55e';
+
+    let totalColor = '';
+    if (currentMes === 'Total' && currentDestino === 'General') {
+        // Referencia anual: 5400 (450 × 12)
+        const REF_ANUAL = 5400;
+        const pctAnual = total / REF_ANUAL * 100;
+        if (pctAnual > 95) {
+            totalColor = '#ef4444'; // rojo
+        } else if (pctAnual >= 81) {
+            totalColor = '#f59e0b'; // amarillo
+        } else if (total >= 1) {
+            totalColor = '#22c55e'; // verde
+        }
     } else {
-        kpiTotalEl.style.color = '';
-        kpiTotalCard.style.borderLeftColor = '';
+        // Meses individuales o filtros de destino: umbrales absolutos
+        if (total > 450) {
+            totalColor = '#ef4444';
+        } else if (total >= 401) {
+            totalColor = '#f59e0b';
+        } else if (total >= 1) {
+            totalColor = '#22c55e';
+        }
     }
+    kpiTotalEl.style.color = totalColor;
+    kpiTotalCard.style.borderLeftColor = totalColor || '';
 
     // ── COLOR SEMÁFORO INTERNACIÓN (siempre activo) ───────────────────────────
     const kpiIntEl   = document.getElementById('kpi-int');
