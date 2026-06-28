@@ -91,7 +91,8 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="card border-l-slate-400">
+            <!-- Volumen Total -->
+            <div id="kpi-total-card" class="card border-l-slate-400">
                 <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Volumen Total</p>
                 <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                     <h3 class="text-4xl font-extrabold text-slate-800" id="kpi-total">0</h3>
@@ -99,30 +100,70 @@
                         <span class="text-lg font-bold text-slate-400" id="kpi-total-pct">(0%)</span>
                     </div>
                 </div>
+                <div id="kpi-total-trend-row" class="mt-2" style="display:none;">
+                    <span id="kpi-total-trend" class="kpi-trend kpi-trend-neutral"></span>
+                </div>
+                <div id="kpi-total-vol-alert" class="kpi-balance-alert kpi-balance-warn mt-2" style="display:none;">
+                    <i class="fas fa-circle-exclamation"></i> Alto volumen ≥ 450
+                </div>
             </div>
             
+            <!-- Ambulatorias -->
             <div class="card">
                 <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Ambulatorias</p>
                 <div class="flex items-baseline gap-2">
                     <h3 class="text-4xl font-extrabold text-slate-800" id="kpi-amb">0</h3>
                     <span class="text-lg font-bold text-slate-400" id="kpi-amb-pct">(0%)</span>
                 </div>
+                <div class="mt-1 text-[10px] font-bold text-slate-300 uppercase tracking-widest">Ref. esperada: 80%</div>
+                <div id="kpi-amb-trend-row" class="mt-2" style="display:none;">
+                    <span id="kpi-amb-trend" class="kpi-trend kpi-trend-neutral"></span>
+                </div>
+                <div id="kpi-amb-balance-alert" class="kpi-balance-alert mt-2" style="display:none;"></div>
             </div>
 
-            <div class="card border-l-aposOrange">
+            <!-- Internación -->
+            <div id="kpi-int-card" class="card border-l-aposOrange">
                 <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Internación</p>
                 <div class="flex items-baseline gap-2">
                     <h3 class="text-4xl font-extrabold text-slate-800" id="kpi-int">0</h3>
                     <span class="text-lg font-bold text-slate-400" id="kpi-int-pct">(0%)</span>
                 </div>
+                <div class="mt-1 text-[10px] font-bold text-slate-300 uppercase tracking-widest">Ref. esperada: 20%</div>
+                <div id="kpi-int-trend-row" class="mt-2" style="display:none;">
+                    <span id="kpi-int-trend" class="kpi-trend kpi-trend-neutral"></span>
+                </div>
+                <div id="kpi-int-balance-alert" class="kpi-balance-alert mt-2" style="display:none;"></div>
             </div>
 
+            <!-- Teleconsulta -->
             <div class="card border-l-slate-300">
                 <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Teleconsulta</p>
                 <div class="flex items-baseline gap-2">
                     <h3 class="text-4xl font-extrabold text-slate-800" id="kpi-tele">0</h3>
                     <span class="text-lg font-bold text-slate-400" id="kpi-tele-pct">(0%)</span>
                 </div>
+            </div>
+        </div>
+
+        <!-- TARJETAS MENSUALES - Solo visible en Total 2026 -->
+        <div id="monthly-cards-section" class="mb-8" style="display:none;">
+            <div class="flex items-center gap-3 mb-4">
+                <h3 class="font-bold text-slate-700 uppercase text-sm tracking-widest">Resumen por Mes</h3>
+                <div class="flex items-center gap-2 ml-auto">
+                    <span class="flex items-center gap-1 text-[10px] font-bold text-slate-400">
+                        <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-400"></span> ≥ 450 derivaciones
+                    </span>
+                    <span class="flex items-center gap-1 text-[10px] font-bold text-slate-400 ml-3">
+                        <span class="text-red-400">▲</span> Sube vs mes ant.
+                    </span>
+                    <span class="flex items-center gap-1 text-[10px] font-bold text-slate-400">
+                        <span class="text-green-500">▼</span> Baja vs mes ant.
+                    </span>
+                </div>
+            </div>
+            <div id="monthly-cards-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                <!-- Generado por JS -->
             </div>
         </div>
 
