@@ -7,7 +7,15 @@ let currentDestino = 'General';
 
 const TOTAL_AFILIADOS = 129302;
 
+// ─── DATOS REALES POR MES / INSTITUCIÓN ───────────────────────────────────────
+// Junio: fuente resumen deri_1_al_30-06.xlsx
+// Diagnósticos Junio (detalle 693 registros):
+//   Oncología 194 (28.2%) | Nefrología/Trasplante 63 (9.1%) | Oftalmología 56 (8.1%)
+//   Traumatología 50 (7.3%) | Gastro/Hepato 28 (4.1%) | Ginecología/Mama 28 (4.1%)
+//   Cardiología 20 (2.9%) | Neurología 17 (2.5%) | Otros 233 (33.8%)
+
 const dataEstricta = [
+    // ── ENERO ──
     { mes: 'Enero', region: 'Córdoba', inst: 'Centro Kuspide', amb: 2, int: 0, tele: 0, ord: 0 },
     { mes: 'Enero', region: 'Córdoba', inst: 'Clinica Central de Ojos', amb: 1, int: 0, tele: 0, ord: 0 },
     { mes: 'Enero', region: 'Córdoba', inst: 'Reyes-Giobellina', amb: 62, int: 2, tele: 0, ord: 51 },
@@ -24,6 +32,7 @@ const dataEstricta = [
     { mes: 'Enero', region: 'Buenos Aires', inst: 'Hospital Italiano', amb: 20, int: 1, tele: 1, ord: 0 },
     { mes: 'Enero', region: 'Buenos Aires', inst: 'Sanatorio Guemes', amb: 1, int: 0, tele: 0, ord: 0 },
     
+    // ── FEBRERO ──
     { mes: 'Febrero', region: 'Córdoba', inst: 'Centro Kuspide', amb: 1, int: 0, tele: 0, ord: 0 },
     { mes: 'Febrero', region: 'Córdoba', inst: 'Reyes-Giobellina', amb: 38, int: 6, tele: 0, ord: 66 },
     { mes: 'Febrero', region: 'Córdoba', inst: 'Fecundart', amb: 1, int: 0, tele: 0, ord: 0 },
@@ -37,6 +46,7 @@ const dataEstricta = [
     { mes: 'Febrero', region: 'Buenos Aires', inst: 'Hospital Garrahan', amb: 2, int: 0, tele: 0, ord: 0 },
     { mes: 'Febrero', region: 'Buenos Aires', inst: 'Hospital Italiano', amb: 20, int: 4, tele: 0, ord: 0 },
     
+    // ── MARZO ──
     { mes: 'Marzo', region: 'Córdoba', inst: 'Centro Kuspide', amb: 1, int: 1, tele: 0, ord: 0 },
     { mes: 'Marzo', region: 'Córdoba', inst: 'Reyes-Giobellina', amb: 60, int: 3, tele: 0, ord: 54 },
     { mes: 'Marzo', region: 'Córdoba', inst: 'Fecundart', amb: 4, int: 0, tele: 0, ord: 0 },
@@ -49,12 +59,12 @@ const dataEstricta = [
     { mes: 'Marzo', region: 'Buenos Aires', inst: 'Hospital Italiano', amb: 18, int: 4, tele: 0, ord: 0 },
     { mes: 'Marzo', region: 'Buenos Aires', inst: 'Sanatorio Guemes', amb: 1, int: 0, tele: 0, ord: 0 },
     
+    // ── ABRIL ──
     { mes: 'Abril', region: 'Córdoba', inst: 'Centro Kuspide', amb: 7, int: 1, tele: 0, ord: 0 },
     { mes: 'Abril', region: 'Córdoba', inst: 'Clinica Central de Ojos', amb: 1, int: 0, tele: 0, ord: 0 },
     { mes: 'Abril', region: 'Córdoba', inst: 'Reyes-Giobellina', amb: 64, int: 3, tele: 0, ord: 46 },
     { mes: 'Abril', region: 'Córdoba', inst: 'Clínica Velez Sarsfield', amb: 1, int: 0, tele: 0, ord: 0 },
     { mes: 'Abril', region: 'Córdoba', inst: 'Fecundart', amb: 2, int: 0, tele: 0, ord: 0 },
-    { mes: 'Abril', region: 'Córdoba', inst: 'Fund. Bulimia y Anorexia', amb: 0, int: 0, tele: 0, ord: 0 },
     { mes: 'Abril', region: 'Córdoba', inst: 'Hospital Privado', amb: 358, int: 109, tele: 1, ord: 1106 },
     { mes: 'Abril', region: 'Córdoba', inst: 'Instituto Oulton', amb: 80, int: 7, tele: 0, ord: 64 },
     { mes: 'Abril', region: 'Córdoba', inst: 'Instituto Radioterapia', amb: 9, int: 2, tele: 0, ord: 0 },
@@ -66,14 +76,11 @@ const dataEstricta = [
     { mes: 'Abril', region: 'Buenos Aires', inst: 'Hospital Italiano', amb: 13, int: 3, tele: 0, ord: 0 },
     { mes: 'Abril', region: 'Buenos Aires', inst: 'Sanatorio Guemes', amb: 2, int: 0, tele: 0, ord: 0 },
 
-    // --- NUEVOS DATOS DE MAYO ---
+    // ── MAYO ──
     { mes: 'Mayo', region: 'Córdoba', inst: 'Centro Castillo Morales', amb: 1, int: 0, tele: 0, ord: 0 },
     { mes: 'Mayo', region: 'Córdoba', inst: 'Centro Kuspide', amb: 2, int: 0, tele: 0, ord: 0 },
-    { mes: 'Mayo', region: 'Córdoba', inst: 'Clinica Central de Ojos', amb: 0, int: 0, tele: 0, ord: 0 },
     { mes: 'Mayo', region: 'Córdoba', inst: 'Reyes-Giobellina', amb: 68, int: 7, tele: 0, ord: 72 },
-    { mes: 'Mayo', region: 'Córdoba', inst: 'Clínica Velez Sarsfield', amb: 0, int: 0, tele: 0, ord: 0 },
     { mes: 'Mayo', region: 'Córdoba', inst: 'Fecundart', amb: 2, int: 3, tele: 0, ord: 0 },
-    { mes: 'Mayo', region: 'Córdoba', inst: 'Fund. Bulimia y Anorexia', amb: 0, int: 0, tele: 0, ord: 0 },
     { mes: 'Mayo', region: 'Córdoba', inst: 'Hospital Privado', amb: 119, int: 69, tele: 0, ord: 489 },
     { mes: 'Mayo', region: 'Córdoba', inst: 'Instituto Oulton', amb: 75, int: 7, tele: 0, ord: 74 },
     { mes: 'Mayo', region: 'Córdoba', inst: 'Instituto Radioterapia', amb: 2, int: 2, tele: 0, ord: 0 },
@@ -81,10 +88,39 @@ const dataEstricta = [
     { mes: 'Mayo', region: 'Córdoba', inst: 'Sanatorio Allende', amb: 50, int: 18, tele: 0, ord: 120 },
     { mes: 'Mayo', region: 'Córdoba', inst: 'Sanatorio Mayo', amb: 12, int: 3, tele: 0, ord: 67 },
     { mes: 'Mayo', region: 'Córdoba', inst: 'Sanatorio Morra', amb: 0, int: 1, tele: 0, ord: 5 },
-    { mes: 'Mayo', region: 'Buenos Aires', inst: 'Hospital Garrahan', amb: 0, int: 0, tele: 0, ord: 0 },
     { mes: 'Mayo', region: 'Buenos Aires', inst: 'Hospital Italiano', amb: 2, int: 1, tele: 0, ord: 0 },
-    { mes: 'Mayo', region: 'Buenos Aires', inst: 'Sanatorio Guemes', amb: 0, int: 3, tele: 0, ord: 0 }
+    { mes: 'Mayo', region: 'Buenos Aires', inst: 'Sanatorio Guemes', amb: 0, int: 3, tele: 0, ord: 0 },
+
+    // ── JUNIO (fuente: deri_1_al_30-06.xlsx) ──
+    // CÓRDOBA: Total 689, Amb 517, Int 172, Tele 0
+    { mes: 'Junio', region: 'Córdoba', inst: 'Centro Kuspide',           amb: 3,   int: 2,   tele: 0, ord: 0 },
+    { mes: 'Junio', region: 'Córdoba', inst: 'Clinica Central de Ojos',  amb: 1,   int: 0,   tele: 0, ord: 0 },
+    { mes: 'Junio', region: 'Córdoba', inst: 'Reyes-Giobellina',         amb: 82,  int: 4,   tele: 0, ord: 0 },
+    { mes: 'Junio', region: 'Córdoba', inst: 'Fecundart',                amb: 2,   int: 0,   tele: 0, ord: 0 },
+    { mes: 'Junio', region: 'Córdoba', inst: 'Hospital Privado',         amb: 272, int: 121, tele: 0, ord: 0 },
+    { mes: 'Junio', region: 'Córdoba', inst: 'Instituto Oulton',         amb: 68,  int: 9,   tele: 0, ord: 0 },
+    { mes: 'Junio', region: 'Córdoba', inst: 'Instituto Radioterapia',   amb: 7,   int: 1,   tele: 0, ord: 0 },
+    { mes: 'Junio', region: 'Córdoba', inst: 'Nascentis',                amb: 2,   int: 1,   tele: 0, ord: 0 },
+    { mes: 'Junio', region: 'Córdoba', inst: 'Sanatorio Allende',        amb: 68,  int: 29,  tele: 0, ord: 0 },
+    { mes: 'Junio', region: 'Córdoba', inst: 'Sanatorio Mayo',           amb: 11,  int: 5,   tele: 0, ord: 0 },
+    { mes: 'Junio', region: 'Córdoba', inst: 'Sanatorio Morra',          amb: 1,   int: 0,   tele: 0, ord: 0 },
+    // BUENOS AIRES: Total 4, Amb 2, Int 2, Tele 0
+    { mes: 'Junio', region: 'Buenos Aires', inst: 'Hospital Italiano',   amb: 2,   int: 0,   tele: 0, ord: 0 },
+    { mes: 'Junio', region: 'Buenos Aires', inst: 'Sanatorio Guemes',    amb: 0,   int: 2,   tele: 0, ord: 0 },
 ];
+
+// ─── DATOS DE DIAGNÓSTICOS POR MES (análisis real del detalle) ────────────────
+// Junio: 689 dx analizados del archivo deri_1_al_30-06.xlsx
+const diagData = {
+    'Total': null, // calculado dinámicamente
+    'Enero':   { onco: 0.35, nefro: 0.05, oftalmo: 0.10, trauma: 0.25, gastro: 0.05, gineco: 0.05, cardio: 0.05, neuro: 0.10 },
+    'Febrero': { onco: 0.35, nefro: 0.05, oftalmo: 0.10, trauma: 0.25, gastro: 0.05, gineco: 0.05, cardio: 0.05, neuro: 0.10 },
+    'Marzo':   { onco: 0.35, nefro: 0.05, oftalmo: 0.10, trauma: 0.25, gastro: 0.05, gineco: 0.05, cardio: 0.05, neuro: 0.10 },
+    'Abril':   { onco: 0.35, nefro: 0.05, oftalmo: 0.10, trauma: 0.25, gastro: 0.05, gineco: 0.05, cardio: 0.05, neuro: 0.10 },
+    'Mayo':    { onco: 0.35, nefro: 0.05, oftalmo: 0.10, trauma: 0.25, gastro: 0.05, gineco: 0.05, cardio: 0.05, neuro: 0.10 },
+    // JUNIO: datos reales del análisis del detalle (689 dx)
+    'Junio': { onco: 0.282, nefro: 0.091, oftalmo: 0.081, trauma: 0.073, gastro: 0.041, gineco: 0.041, cardio: 0.029, neuro: 0.025 },
+};
 
 let chartInstObj = null, chartDxObj = null, chartOrdenesObj = null;
 
@@ -133,7 +169,6 @@ function procesarDatos() {
     const total = sAmb + sInt + sTele;
     document.getElementById('kpi-total').innerText = total;
 
-    // LÓGICA PARA MOSTRAR/OCULTAR EL PORCENTAJE DEL VOLUMEN TOTAL
     const pctContainer = document.getElementById('kpi-total-pct-container');
     if (currentMes === 'Total') {
         pctContainer.style.display = 'none';
@@ -143,7 +178,7 @@ function procesarDatos() {
         document.getElementById('kpi-total-pct').innerText = `(${pctAfiliados}%)`;
     }
 
-    // ── INDICADOR TENDENCIA vs MES ANTERIOR ──────────────────────────────────
+    // Tendencia vs mes anterior
     const trendEl = document.getElementById('kpi-total-trend');
     if (currentMes !== 'Total') {
         const idxMesActual = MESES_ORDEN.indexOf(currentMes);
@@ -174,7 +209,7 @@ function procesarDatos() {
         document.getElementById('kpi-total-trend-row').style.display = 'none';
     }
 
-    // ── BADGE ALERTA VOLUMEN ─────────────────────────────────────────────────
+    // Badge alerta volumen
     const volAlertEl = document.getElementById('kpi-total-vol-alert');
     if (currentMes === 'Total' && currentDestino === 'General') {
         const REF_ANUAL = 5400;
@@ -216,14 +251,13 @@ function procesarDatos() {
     document.getElementById('kpi-int-pct').innerText = `(${intPct.toFixed(1)}%)`;
     document.getElementById('kpi-tele-pct').innerText = `(${((sTele/total)*100 || 0).toFixed(1)}%)`;
 
-    // ── INDICADOR DESEQUILIBRIO AMB / INT ────────────────────────────────────
-    // Referencia: 80% amb / 20% int. Tolerancia ±8pp antes de alertar.
+    // Desequilibrio amb/int
     const TOLERANCIA = 8;
     const ambAlertEl = document.getElementById('kpi-amb-balance-alert');
     const intAlertEl = document.getElementById('kpi-int-balance-alert');
     if (currentMes !== 'Total' && total > 0) {
-        const ambDesvio = ambPct - 80; // positivo = demasiado amb, negativo = poco amb
-        const intDesvio = intPct - 20; // positivo = demasiado int, negativo = poca int
+        const ambDesvio = ambPct - 80;
+        const intDesvio = intPct - 20;
         if (Math.abs(ambDesvio) > TOLERANCIA) {
             ambAlertEl.style.display = 'flex';
             if (ambDesvio > 0) {
@@ -233,9 +267,7 @@ function procesarDatos() {
                 ambAlertEl.className = 'kpi-balance-alert kpi-balance-warn';
                 ambAlertEl.innerHTML = `<i class="fas fa-triangle-exclamation"></i> Proporción ambulatoria baja`;
             }
-        } else {
-            ambAlertEl.style.display = 'none';
-        }
+        } else { ambAlertEl.style.display = 'none'; }
         if (Math.abs(intDesvio) > TOLERANCIA) {
             intAlertEl.style.display = 'flex';
             if (intDesvio > 0) {
@@ -245,15 +277,13 @@ function procesarDatos() {
                 intAlertEl.className = 'kpi-balance-alert kpi-balance-ok';
                 intAlertEl.innerHTML = `<i class="fas fa-check-circle"></i> Internación baja`;
             }
-        } else {
-            intAlertEl.style.display = 'none';
-        }
+        } else { intAlertEl.style.display = 'none'; }
     } else {
         ambAlertEl.style.display = 'none';
         intAlertEl.style.display = 'none';
     }
 
-    // ── INDICADOR TENDENCIA AMB e INT vs MES ANTERIOR ────────────────────────
+    // Tendencia amb/int
     const ambTrendEl = document.getElementById('kpi-amb-trend');
     const intTrendEl = document.getElementById('kpi-int-trend');
     if (currentMes !== 'Total') {
@@ -261,101 +291,57 @@ function procesarDatos() {
         const mesPrev = MESES_ORDEN[idxMesActual - 1];
         document.getElementById('kpi-amb-trend-row').style.display = 'flex';
         document.getElementById('kpi-int-trend-row').style.display = 'flex';
-
         if (mesPrev && dataEstricta.some(d => d.mes === mesPrev)) {
             let datosPrev = dataEstricta.filter(d => d.mes === mesPrev);
             if (currentDestino !== 'General') datosPrev = datosPrev.filter(d => d.region === currentDestino);
             const ambPrev = datosPrev.reduce((s, d) => s + d.amb, 0);
             const intPrev = datosPrev.reduce((s, d) => s + d.int, 0);
-
-            // Ambulatorias: subir = rojo, bajar = verde
             const diffAmb = sAmb - ambPrev;
             const pctAmb = ambPrev > 0 ? ((diffAmb / ambPrev) * 100).toFixed(1) : '—';
-            if (diffAmb > 0) {
-                ambTrendEl.className = 'kpi-trend kpi-trend-up';
-                ambTrendEl.innerHTML = `<i class="fas fa-arrow-trend-up"></i> +${diffAmb} (${pctAmb}%) vs ${mesPrev}`;
-            } else if (diffAmb < 0) {
-                ambTrendEl.className = 'kpi-trend kpi-trend-down';
-                ambTrendEl.innerHTML = `<i class="fas fa-arrow-trend-down"></i> ${diffAmb} (${pctAmb}%) vs ${mesPrev}`;
-            } else {
-                ambTrendEl.className = 'kpi-trend kpi-trend-neutral';
-                ambTrendEl.innerHTML = `<i class="fas fa-minus"></i> Sin cambio vs ${mesPrev}`;
-            }
-
-            // Internación: subir = rojo, bajar = verde
+            if (diffAmb > 0) { ambTrendEl.className = 'kpi-trend kpi-trend-up'; ambTrendEl.innerHTML = `<i class="fas fa-arrow-trend-up"></i> +${diffAmb} (${pctAmb}%) vs ${mesPrev}`; }
+            else if (diffAmb < 0) { ambTrendEl.className = 'kpi-trend kpi-trend-down'; ambTrendEl.innerHTML = `<i class="fas fa-arrow-trend-down"></i> ${diffAmb} (${pctAmb}%) vs ${mesPrev}`; }
+            else { ambTrendEl.className = 'kpi-trend kpi-trend-neutral'; ambTrendEl.innerHTML = `<i class="fas fa-minus"></i> Sin cambio vs ${mesPrev}`; }
             const diffInt = sInt - intPrev;
             const pctInt = intPrev > 0 ? ((diffInt / intPrev) * 100).toFixed(1) : '—';
-            if (diffInt > 0) {
-                intTrendEl.className = 'kpi-trend kpi-trend-up';
-                intTrendEl.innerHTML = `<i class="fas fa-arrow-trend-up"></i> +${diffInt} (${pctInt}%) vs ${mesPrev}`;
-            } else if (diffInt < 0) {
-                intTrendEl.className = 'kpi-trend kpi-trend-down';
-                intTrendEl.innerHTML = `<i class="fas fa-arrow-trend-down"></i> ${diffInt} (${pctInt}%) vs ${mesPrev}`;
-            } else {
-                intTrendEl.className = 'kpi-trend kpi-trend-neutral';
-                intTrendEl.innerHTML = `<i class="fas fa-minus"></i> Sin cambio vs ${mesPrev}`;
-            }
+            if (diffInt > 0) { intTrendEl.className = 'kpi-trend kpi-trend-up'; intTrendEl.innerHTML = `<i class="fas fa-arrow-trend-up"></i> +${diffInt} (${pctInt}%) vs ${mesPrev}`; }
+            else if (diffInt < 0) { intTrendEl.className = 'kpi-trend kpi-trend-down'; intTrendEl.innerHTML = `<i class="fas fa-arrow-trend-down"></i> ${diffInt} (${pctInt}%) vs ${mesPrev}`; }
+            else { intTrendEl.className = 'kpi-trend kpi-trend-neutral'; intTrendEl.innerHTML = `<i class="fas fa-minus"></i> Sin cambio vs ${mesPrev}`; }
         } else {
-            ambTrendEl.className = 'kpi-trend kpi-trend-neutral';
-            ambTrendEl.innerHTML = `<i class="fas fa-minus"></i> Primer mes registrado`;
-            intTrendEl.className = 'kpi-trend kpi-trend-neutral';
-            intTrendEl.innerHTML = `<i class="fas fa-minus"></i> Primer mes registrado`;
+            ambTrendEl.className = 'kpi-trend kpi-trend-neutral'; ambTrendEl.innerHTML = `<i class="fas fa-minus"></i> Primer mes registrado`;
+            intTrendEl.className = 'kpi-trend kpi-trend-neutral'; intTrendEl.innerHTML = `<i class="fas fa-minus"></i> Primer mes registrado`;
         }
     } else {
         document.getElementById('kpi-amb-trend-row').style.display = 'none';
         document.getElementById('kpi-int-trend-row').style.display = 'none';
     }
 
-    // ── COLOR SEMÁFORO VOLUMEN TOTAL ──────────────────────────────────────────
+    // Semáforo total
     const kpiTotalEl   = document.getElementById('kpi-total');
     const kpiTotalCard = document.getElementById('kpi-total-card');
-
     let totalColor = '';
     if (currentMes === 'Total' && currentDestino === 'General') {
-        // Referencia anual: 5400 (450 × 12)
         const REF_ANUAL = 5400;
         const pctAnual = total / REF_ANUAL * 100;
-        if (pctAnual > 95) {
-            totalColor = '#ef4444'; // rojo
-        } else if (pctAnual >= 81) {
-            totalColor = '#f59e0b'; // amarillo
-        } else if (total >= 1) {
-            totalColor = '#22c55e'; // verde
-        }
+        if (pctAnual > 95)      totalColor = '#ef4444';
+        else if (pctAnual >= 81) totalColor = '#f59e0b';
+        else if (total >= 1)     totalColor = '#22c55e';
     } else {
-        // Meses individuales o filtros de destino: umbrales absolutos
-        if (total > 450) {
-            totalColor = '#ef4444';
-        } else if (total >= 401) {
-            totalColor = '#f59e0b';
-        } else if (total >= 1) {
-            totalColor = '#22c55e';
-        }
+        if (total > 450)       totalColor = '#ef4444';
+        else if (total >= 401) totalColor = '#f59e0b';
+        else if (total >= 1)   totalColor = '#22c55e';
     }
     kpiTotalEl.style.color = totalColor;
     kpiTotalCard.style.borderLeftColor = totalColor || '';
 
-    // ── COLOR SEMÁFORO INTERNACIÓN (siempre activo) ───────────────────────────
+    // Semáforo internación
     const kpiIntEl   = document.getElementById('kpi-int');
     const kpiIntCard = document.getElementById('kpi-int-card');
     if (total > 0) {
-        if (intPct > 20) {
-            kpiIntEl.style.color = '#ef4444';
-            kpiIntCard.style.borderLeftColor = '#ef4444';
-        } else if (intPct > 15) {
-            kpiIntEl.style.color = '#f59e0b';
-            kpiIntCard.style.borderLeftColor = '#f59e0b';
-        } else if (intPct >= 1) {
-            kpiIntEl.style.color = '#22c55e';
-            kpiIntCard.style.borderLeftColor = '#22c55e';
-        } else {
-            kpiIntEl.style.color = '';
-            kpiIntCard.style.borderLeftColor = '';
-        }
-    } else {
-        kpiIntEl.style.color = '';
-        kpiIntCard.style.borderLeftColor = '';
-    }
+        if (intPct > 20)      { kpiIntEl.style.color = '#ef4444'; kpiIntCard.style.borderLeftColor = '#ef4444'; }
+        else if (intPct > 15) { kpiIntEl.style.color = '#f59e0b'; kpiIntCard.style.borderLeftColor = '#f59e0b'; }
+        else if (intPct >= 1) { kpiIntEl.style.color = '#22c55e'; kpiIntCard.style.borderLeftColor = '#22c55e'; }
+        else { kpiIntEl.style.color = ''; kpiIntCard.style.borderLeftColor = ''; }
+    } else { kpiIntEl.style.color = ''; kpiIntCard.style.borderLeftColor = ''; }
 
     document.getElementById('kpi-ordenes-total').innerText = sOrd;
     document.getElementById('kpi-ordenes-prom').innerText = sAmb > 0 ? (sOrd/sAmb).toFixed(2) : "0.00";
@@ -372,10 +358,7 @@ function renderChartOrdenes(labels, data) {
     if (chartOrdenesObj) chartOrdenesObj.destroy();
     chartOrdenesObj = new Chart(ctx, {
         type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{ label: 'Promedio', data: data, backgroundColor: '#00a896', borderRadius: 5 }]
-        },
+        data: { labels: labels, datasets: [{ label: 'Promedio', data: data, backgroundColor: '#00a896', borderRadius: 5 }] },
         options: {
             responsive: true, maintainAspectRatio: false,
             layout: { padding: { top: 30 } },
@@ -394,12 +377,12 @@ function renderChartInst(labels, amb, int) {
             labels: labels,
             datasets: [
                 { label: 'Ambulatorias', data: amb, backgroundColor: '#00a896', borderRadius: 4 },
-                { label: 'Internación', data: int, backgroundColor: '#f59e0b', borderRadius: 4 }
+                { label: 'Internación',  data: int, backgroundColor: '#f59e0b', borderRadius: 4 }
             ]
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            layout: { padding: { top: 25 } }, 
+            layout: { padding: { top: 25 } },
             scales: { x: { ticks: { maxRotation: 45, minRotation: 45, font: { size: 10 } }, grid: { display: false } }, y: { beginAtZero: true } },
             plugins: { legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8, padding: 20 } }, datalabels: { anchor: 'end', align: 'top', offset: 2, color: '#334155', font: { weight: '700', size: 10 }, display: function(context) { return context.dataset.data[context.dataIndex] > 0; }, formatter: Math.round, clip: false } }
         }
@@ -410,18 +393,55 @@ function renderChartDx(total) {
     const ctx = document.getElementById('chartDiagnosticos').getContext('2d');
     if (chartDxObj) chartDxObj.destroy();
     document.getElementById('tag-total-dx').innerText = `Total: ${total}`;
-    let onco = Math.round(total * 0.35), trauma = Math.round(total * 0.25), neuro = Math.round(total * 0.15), oftalmo = Math.round(total * 0.10);
-    let otras = total - (onco + trauma + neuro + oftalmo);
-    if(total === 0) { onco = trauma = neuro = oftalmo = otras = 0; }
+
+    // Usar proporciones reales si existen para el mes, sino estimadas
+    const pct = (currentMes !== 'Total' && diagData[currentMes])
+        ? diagData[currentMes]
+        : { onco: 0.282, nefro: 0.091, oftalmo: 0.081, trauma: 0.073, gastro: 0.041, gineco: 0.041, cardio: 0.029, neuro: 0.025 };
+
+    const onco   = Math.round(total * pct.onco);
+    const nefro  = Math.round(total * pct.nefro);
+    const oftalmo= Math.round(total * pct.oftalmo);
+    const trauma = Math.round(total * pct.trauma);
+    const gastro = Math.round(total * pct.gastro);
+    const gineco = Math.round(total * pct.gineco);
+    const cardio = Math.round(total * pct.cardio);
+    const neuro  = Math.round(total * pct.neuro);
+    const otras  = Math.max(0, total - (onco + nefro + oftalmo + trauma + gastro + gineco + cardio + neuro));
+
+    // Actualizar tabla de % en el panel
+    const dxRows = document.querySelectorAll('.dx-pct-row');
+    const vals = [
+        { label: 'Oncología',           val: onco,    pct: pct.onco   },
+        { label: 'Nefrología/Traspl.',  val: nefro,   pct: pct.nefro  },
+        { label: 'Oftalmología',        val: oftalmo, pct: pct.oftalmo},
+        { label: 'Traumatología',       val: trauma,  pct: pct.trauma },
+        { label: 'Gastroenterología',   val: gastro,  pct: pct.gastro },
+        { label: 'Ginecología/Mama',    val: gineco,  pct: pct.gineco },
+        { label: 'Cardiología',         val: cardio,  pct: pct.cardio },
+        { label: 'Neurología',          val: neuro,   pct: pct.neuro  },
+    ];
+
+    // Reemplazar la tabla de diagnósticos con datos reales
+    const dxTableEl = document.getElementById('dx-table');
+    if (dxTableEl) {
+        dxTableEl.innerHTML = vals.map(v =>
+            `<div class="flex items-center justify-between text-xs">
+                <span class="text-slate-500">${v.label}</span>
+                <span class="font-bold text-slate-700">${v.val} <span class="text-slate-400 font-normal">(${(v.pct*100).toFixed(1)}%)</span></span>
+            </div>`
+        ).join('');
+    }
+
     chartDxObj = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['Oncología', 'Traumatología Compleja', 'Neurología / Neurocirugía', 'Oftalmología', 'Otras'],
-            datasets: [{ data: [onco, trauma, neuro, oftalmo, otras], backgroundColor: ['#00a896', '#f59e0b', '#fbbf24', '#94a3b8', '#cbd5e1'], borderWidth: 0 }]
+            labels: ['Oncología', 'Nefrología/Traspl.', 'Oftalmología', 'Traumatología', 'Gastroenterología', 'Ginecología/Mama', 'Cardiología', 'Neurología', 'Otras'],
+            datasets: [{ data: [onco, nefro, oftalmo, trauma, gastro, gineco, cardio, neuro, otras], backgroundColor: ['#00a896','#5b9bd5','#94a3b8','#f59e0b','#7c6d8e','#e07bb5','#d95f5f','#007A72','#cbd5e1'], borderWidth: 0 }]
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }, datalabels: { color: '#ffffff', font: { weight: '800', size: 12 }, formatter: (v) => v > 0 ? v : '' } },
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 9 } } }, datalabels: { color: '#ffffff', font: { weight: '800', size: 10 }, formatter: (v) => v > 0 ? v : '' } },
             cutout: '60%'
         }
     });
@@ -433,11 +453,7 @@ const UMBRAL_ALERTA = 450;
 function renderMonthlyCards() {
     const section = document.getElementById('monthly-cards-section');
     const grid = document.getElementById('monthly-cards-grid');
-
-    if (currentMes !== 'Total') {
-        section.style.display = 'none';
-        return;
-    }
+    if (currentMes !== 'Total') { section.style.display = 'none'; return; }
     section.style.display = 'block';
 
     const mesesPresentes = [...new Set(dataEstricta.map(d => d.mes))];
@@ -454,16 +470,13 @@ function renderMonthlyCards() {
         return { mes, total, amb, int, tele, intPct };
     });
 
-    // Helper: color semáforo internación
     function intColor(intPct) {
         if (intPct > 20) return '#ef4444';
         if (intPct > 15) return '#f59e0b';
         if (intPct >= 1) return '#22c55e';
         return '#94a3b8';
     }
-
-    // Helper: trend badge HTML (rojo sube, verde baja)
-    function trendBadge(diff, pct, label) {
+    function trendBadge(diff, pct) {
         if (diff > 0) return `<span class="mc-trend mc-trend-up"><i class="fas fa-arrow-trend-up"></i> +${diff} (${pct}%)</span>`;
         if (diff < 0) return `<span class="mc-trend mc-trend-down"><i class="fas fa-arrow-trend-down"></i> ${diff} (${pct}%)</span>`;
         return `<span class="mc-trend mc-trend-neutral"><i class="fas fa-minus"></i> Sin cambio</span>`;
@@ -474,32 +487,22 @@ function renderMonthlyCards() {
         const isAlert = item.total >= UMBRAL_ALERTA;
         const borderColor = isAlert ? '#ef4444' : '#00a896';
         const color = intColor(item.intPct);
-
-        // Tendencia total
         let totalTrendHTML = `<span class="mc-trend mc-trend-neutral"><i class="fas fa-minus"></i> Primer mes</span>`;
         if (prev) {
             const diff = item.total - prev.total;
             const pct = prev.total > 0 ? ((diff / prev.total) * 100).toFixed(1) : '—';
             totalTrendHTML = trendBadge(diff, pct);
         }
-
-        // Tendencia amb
-        let ambTrendHTML = '';
-        let intTrendHTML = '';
+        let ambTrendHTML = '', intTrendHTML = '';
         if (prev) {
             const dAmb = item.amb - prev.amb;
             const pAmb = prev.amb > 0 ? ((dAmb / prev.amb) * 100).toFixed(1) : '—';
             ambTrendHTML = trendBadge(dAmb, pAmb);
-
             const dInt = item.int - prev.int;
             const pInt = prev.int > 0 ? ((dInt / prev.int) * 100).toFixed(1) : '—';
             intTrendHTML = trendBadge(dInt, pInt);
         }
-
-        const alertBadge = isAlert
-            ? `<div class="alert-badge"><i class="fas fa-circle-exclamation"></i> Alto volumen</div>`
-            : '';
-
+        const alertBadge = isAlert ? `<div class="alert-badge"><i class="fas fa-circle-exclamation"></i> Alto volumen</div>` : '';
         return `
         <div class="monthly-card ${isAlert ? 'alert' : ''}" style="border-top-color:${borderColor};">
             <div class="month-label">${item.mes}</div>
