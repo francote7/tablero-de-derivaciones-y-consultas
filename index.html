@@ -262,6 +262,7 @@ body {
                     <option value="Abril">Abril</option>
                     <option value="Mayo">Mayo</option>
                     <option value="Junio">Junio</option>
+                    <option value="Julio">Julio ⚠ parcial</option>
                 </select>
             </div>
         </div>
@@ -311,7 +312,11 @@ body {
                 <div id="kpi-total-trend-row" class="mt-2" style="display:none;">
                     <span id="kpi-total-trend" class="kpi-trend kpi-trend-neutral"></span>
                 </div>
-                <div id="kpi-total-vol-alert" class="kpi-balance-alert kpi-balance-warn mt-2" style="display:none;">
+                <div id="kpi-parcial-badge" style="display:none;" class="mb-3 flex items-center gap-2 bg-amber-50 border border-amber-300 text-amber-800 text-xs font-bold px-4 py-2 rounded-xl">
+                <i class="fas fa-triangle-exclamation"></i>
+                Datos parciales — 01 al 05 de julio de 2026. Los valores reflejan solo los primeros 5 días hábiles del mes.
+            </div>
+            <div id="kpi-total-vol-alert" class="kpi-balance-alert kpi-balance-warn mt-2" style="display:none;">
                     <i class="fas fa-circle-exclamation"></i> Alto volumen ≥ 450
                 </div>
             </div>
@@ -518,7 +523,7 @@ Chart.defaults.font.family = "'Poppins', sans-serif";
 let currentMes = 'Total';
 let currentDestino = 'General';
 const TOTAL_AFILIADOS = 129302;
-const MESES_ORDEN = ['Enero','Febrero','Marzo','Abril','Mayo','Junio'];
+const MESES_ORDEN = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio'];
 const UMBRAL_ALERTA = 450;
 
 // ─── DATOS EXACTOS (fuente: archivos 26-01 al 26-06.xlsx) ────────────────────
@@ -599,7 +604,19 @@ const dataEstricta = [
     { mes:'Mayo', region:'Buenos Aires', inst:'Hospital Italiano',              amb:2,   int:1,   tele:0, ord:0   },
     { mes:'Mayo', region:'Buenos Aires', inst:'Sanatorio Guemes',               amb:0,   int:3,   tele:0, ord:0   },
 
-    // ── JUNIO (total=693) Amb=519 Int=174 Tele=0 | LR=492 CBA=201 ──
+    // ── JULIO (total=195) Amb=155 Int=40 Tele=0 | LR=167 CBA=28 ──
+    // ⚠ DATOS PARCIALES: 01 al 05 de julio de 2026
+    { mes:'Julio', region:'Córdoba',      inst:'Centro Kuspide',                    amb:1,  int:0,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Clinica de Ojos Reyes-Giobellina',  amb:18, int:3,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Fecundart',                         amb:1,  int:0,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Hospital Privado',                  amb:99, int:25, tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Instituto Oulton',                  amb:16, int:1,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Instituto Radioterapia',            amb:3,  int:1,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Nascentis',                         amb:1,  int:0,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Allende',                 amb:13, int:8,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Mayo',                    amb:2,  int:1,  tele:0, ord:0 },
+    { mes:'Julio', region:'Buenos Aires', inst:'Hospital Italiano',                 amb:0,  int:1,  tele:0, ord:0 },
+    { mes:'Julio', region:'Buenos Aires', inst:'Sanatorio Guemes',                  amb:1,  int:0,  tele:0, ord:0 },
     // Órdenes: fuente resumen 26-06.xlsx actualizado
     { mes:'Junio', region:'Córdoba', inst:'Centro Kuspide',                     amb:3,   int:2,   tele:0, ord:0   },
     { mes:'Junio', region:'Córdoba', inst:'Clinica Central de Ojos',            amb:1,   int:0,   tele:0, ord:0   },
@@ -623,7 +640,7 @@ const origenData = {
     'Marzo':   { lr: 811, cba: 23,  total: 834 },
     'Abril':   { lr: 715, cba: 210, total: 925 },
     'Mayo':    { lr: 279, cba: 174, total: 453 },
-    'Junio':   { lr: 492, cba: 201, total: 693 },
+    'Julio':   { lr: 167, cba: 28, total: 195 },
 };
 
 // ─── ACTIVIDAD DIARIA POR MES (fuente exacta detalle xlsx) ───────────────────
@@ -671,6 +688,14 @@ const actividadDiaria = {
         {d:'20/05 Mié',v:11},{d:'21/05 Jue',v:18},{d:'22/05 Vie',v:13},{d:'26/05 Mar',v:23},
         {d:'27/05 Mié',v:29},{d:'28/05 Jue',v:27},{d:'29/05 Vie',v:41},
     ],
+    'Julio': [
+        {d:'01/07 Mié',v:79},
+        {d:'02/07 Jue',v:53},
+        {d:'03/07 Vie',v:60},
+        {d:'06/07 Lun',v:1},
+        {d:'07/07 Mar',v:1},
+        {d:'13/07 Lun',v:1},
+    ],
     'Junio': [
         {d:'01/06 Lun',v:38},{d:'02/06 Mar',v:36},{d:'03/06 Mié',v:18},{d:'04/06 Jue',v:39},
         {d:'05/06 Vie',v:49},{d:'08/06 Lun',v:29},{d:'09/06 Mar',v:32},{d:'10/06 Mié',v:30},
@@ -690,7 +715,7 @@ const diagData = {
     'Enero':   { onco:121, trauma:104, nefro:36,  oftalmo:58,  gineco:46,  gastro:43,  neuro:29,  cardio:18,  total:740  },
     'Febrero': { onco:97,  trauma:78,  nefro:30,  oftalmo:40,  gineco:28,  gastro:29,  neuro:31,  cardio:10,  total:598  },
     'Marzo':   { onco:177, trauma:97,  nefro:21,  oftalmo:52,  gineco:43,  gastro:51,  neuro:31,  cardio:17,  total:834  },
-    'Abril':   null,
+    'Julio':   { onco:33, trauma:14, nefro:4,   oftalmo:12,  gineco:9,   gastro:9,   neuro:9,   cardio:5,   total:195  },
     'Mayo':    null,
     'Junio':   { onco:133, trauma:55,  nefro:39,  oftalmo:49,  gineco:49,  gastro:40,  neuro:26,  cardio:26,  total:693  },
 };
@@ -760,6 +785,16 @@ function procesarDatos() {
             else             { trendEl.className='kpi-trend kpi-trend-neutral'; trendEl.innerHTML=`<i class="fas fa-minus"></i> Sin cambio`; }
         } else { trendEl.className='kpi-trend kpi-trend-neutral'; trendEl.innerHTML=`<i class="fas fa-minus"></i> Primer mes`; }
     } else { trendRow.style.display='none'; }
+
+    // ── BADGE DATOS PARCIALES (Julio) ─────────────────────────────────────────
+    const parcialBadge = document.getElementById('kpi-parcial-badge');
+    if (parcialBadge) {
+        if (currentMes === 'Julio') {
+            parcialBadge.style.display = 'flex';
+        } else {
+            parcialBadge.style.display = 'none';
+        }
+    }
 
     // ── BADGE VOLUMEN ─────────────────────────────────────────────────────────
     const volEl=document.getElementById('kpi-total-vol-alert');
@@ -1025,7 +1060,7 @@ function renderChartDx() {
 
     // En vista Total: aclarar que Abril y Mayo no tienen datos de diagnóstico
     const mesesSinDx = currentMes === 'Total'
-        ? MESES_ORDEN.filter(m => !diagData[m])
+        ? MESES_ORDEN.filter(m => !diagData[m] && m !== 'Julio')
         : [];
     const totalSinDx = mesesSinDx.reduce((s, m) => {
         const rows = dataEstricta.filter(d => d.mes === m);
