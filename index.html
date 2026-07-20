@@ -319,7 +319,7 @@ body {
                 </div>
                 <div id="kpi-parcial-badge" style="display:none;" class="mb-3 flex items-center gap-2 bg-amber-50 border border-amber-300 text-amber-800 text-xs font-bold px-4 py-2 rounded-xl">
                 <i class="fas fa-triangle-exclamation"></i>
-                Datos parciales — 01 al 12 de julio de 2026. Los valores reflejan solo los primeros 12 días del mes.
+                Datos parciales — 01 al 19 de julio de 2026. Los valores reflejan solo los primeros 19 días del mes.
             </div>
             <div id="kpi-total-vol-alert" class="kpi-balance-alert kpi-balance-warn mt-2" style="display:none;">
                     <i class="fas fa-circle-exclamation"></i> Alto volumen ≥ 450
@@ -609,18 +609,19 @@ const dataEstricta = [
     { mes:'Mayo', region:'Buenos Aires', inst:'Hospital Italiano',              amb:2,   int:1,   tele:0, ord:0   },
     { mes:'Mayo', region:'Buenos Aires', inst:'Sanatorio Guemes',               amb:0,   int:3,   tele:0, ord:0   },
 
-    // ── JULIO (total=288) Amb=217 Int=71 Tele=0 | LR=260 CBA=28 ──
-    // ⚠ DATOS PARCIALES: 01 al 12 de julio de 2026
+    // ── JULIO (total=477) Amb=381 Int=96 Tele=0 | LR=395 CBA=82 ──
+    // ⚠ DATOS PARCIALES: 01 al 19 de julio de 2026
     { mes:'Julio', region:'Córdoba',      inst:'Centro Kuspide',                   amb:1,   int:0,  tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Clinica de Ojos Reyes-Giobellina', amb:18,  int:11, tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Fecundart',                        amb:1,   int:1,  tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Hospital Privado',                 amb:140, int:39, tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Instituto Oulton',                 amb:23,  int:2,  tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Instituto Radioterapia',           amb:3,   int:2,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Clinica de Ojos Reyes-Giobellina', amb:44,  int:3,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Fecundart',                        amb:3,   int:0,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Hospital Privado',                 amb:228, int:61, tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Instituto Oulton',                 amb:39,  int:5,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Instituto Radioterapia',           amb:5,   int:3,  tele:0, ord:0 },
     { mes:'Julio', region:'Córdoba',      inst:'Nascentis',                        amb:1,   int:0,  tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Allende',                amb:24,  int:14, tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Mayo',                   amb:4,   int:1,  tele:0, ord:0 },
-    { mes:'Julio', region:'Buenos Aires', inst:'Hospital Garrahan',                amb:1,   int:0,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Allende',                amb:51,  int:21, tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Mayo',                   amb:5,   int:2,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Morra',                  amb:1,   int:0,  tele:0, ord:0 },
+    { mes:'Julio', region:'Buenos Aires', inst:'Hospital Garrahan',                amb:2,   int:0,  tele:0, ord:0 },
     { mes:'Julio', region:'Buenos Aires', inst:'Hospital Italiano',                amb:0,   int:1,  tele:0, ord:0 },
     { mes:'Julio', region:'Buenos Aires', inst:'Sanatorio Guemes',                 amb:1,   int:0,  tele:0, ord:0 },
     // Órdenes: fuente resumen 26-06.xlsx actualizado
@@ -646,7 +647,7 @@ const origenData = {
     'Marzo':   { lr: 811, cba: 23,  total: 834 },
     'Abril':   { lr: 715, cba: 210, total: 925 },
     'Mayo':    { lr: 279, cba: 174, total: 453 },
-    'Julio':   { lr: 242, cba: 46, total: 288 },
+    'Julio':   { lr: 395, cba: 82, total: 477 },
 };
 
 // ─── ACTIVIDAD DIARIA POR MES (fuente exacta detalle xlsx) ───────────────────
@@ -704,7 +705,12 @@ const actividadDiaria = {
         {d:'09/07 Jue',v:2},
         {d:'11/07 Sáb',v:1},
         {d:'12/07 Dom',v:5},
-        {d:'13/07 Lun',v:1},
+        {d:'13/07 Lun',v:51},
+        {d:'14/07 Mar',v:27},
+        {d:'15/07 Mié',v:32},
+        {d:'16/07 Jue',v:40},
+        {d:'17/07 Vie',v:33},
+        {d:'18/07 Sáb',v:7},
     ],
     'Junio': [
         {d:'01/06 Lun',v:38},{d:'02/06 Mar',v:36},{d:'03/06 Mié',v:18},{d:'04/06 Jue',v:39},
@@ -725,7 +731,7 @@ const diagData = {
     'Enero':   { onco:121, trauma:104, nefro:36,  oftalmo:58,  gineco:46,  gastro:43,  neuro:29,  cardio:18,  total:740  },
     'Febrero': { onco:97,  trauma:78,  nefro:30,  oftalmo:40,  gineco:28,  gastro:29,  neuro:31,  cardio:10,  total:598  },
     'Marzo':   { onco:177, trauma:97,  nefro:21,  oftalmo:52,  gineco:43,  gastro:51,  neuro:31,  cardio:17,  total:834  },
-    'Julio':   { onco:45, trauma:22, nefro:11,  oftalmo:22,  gineco:11,  gastro:17,  neuro:11,  cardio:7,   total:288  },
+    'Julio':   { onco:98, trauma:47, nefro:29,  oftalmo:36,  gineco:24,  gastro:29,  neuro:28,  cardio:17,  total:477  },
     'Mayo':    null,
     'Junio':   { onco:133, trauma:55,  nefro:39,  oftalmo:49,  gineco:49,  gastro:40,  neuro:26,  cardio:26,  total:693  },
 };
