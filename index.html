@@ -267,7 +267,7 @@ body {
                     <option value="Abril">Abril</option>
                     <option value="Mayo">Mayo</option>
                     <option value="Junio">Junio</option>
-                    <option value="Julio">Julio ⚠ parcial</option>
+                    <option value="Julio">Julio</option>
                 </select>
             </div>
         </div>
@@ -319,7 +319,7 @@ body {
                 </div>
                 <div id="kpi-parcial-badge" style="display:none;" class="mb-3 flex items-center gap-2 bg-amber-50 border border-amber-300 text-amber-800 text-xs font-bold px-4 py-2 rounded-xl">
                 <i class="fas fa-triangle-exclamation"></i>
-                Datos parciales — 01 al 23 de julio de 2026. Los valores reflejan solo los primeros 23 días del mes.
+                Datos parciales — 01 al 23 de julio de 2026. Los valores reflejan los primeros 23 días del mes.
             </div>
             <div id="kpi-total-vol-alert" class="kpi-balance-alert kpi-balance-warn mt-2" style="display:none;">
                     <i class="fas fa-circle-exclamation"></i> Alto volumen ≥ 450
@@ -609,21 +609,20 @@ const dataEstricta = [
     { mes:'Mayo', region:'Buenos Aires', inst:'Hospital Italiano',              amb:2,   int:1,   tele:0, ord:0   },
     { mes:'Mayo', region:'Buenos Aires', inst:'Sanatorio Guemes',               amb:0,   int:3,   tele:0, ord:0   },
 
-    // ── JULIO (total=586) Amb=461 Int=125 Tele=0 | LR=473 CBA=113 ──
-    // ⚠ DATOS PARCIALES: 01 al 23 de julio de 2026
-    { mes:'Julio', region:'Córdoba',      inst:'Centro Kuspide',                   amb:3,   int:0,  tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Clinica de Ojos Reyes-Giobellina', amb:60,  int:3,  tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Fecundart',                        amb:3,   int:0,  tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Hospital Privado',                 amb:269, int:82, tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Instituto Oulton',                 amb:48,  int:6,  tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Instituto Radioterapia',           amb:5,   int:3,  tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Nascentis',                        amb:1,   int:0,  tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Allende',                amb:60,  int:26, tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Mayo',                   amb:8,   int:3,  tele:0, ord:0 },
-    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Morra',                  amb:1,   int:0,  tele:0, ord:0 },
-    { mes:'Julio', region:'Buenos Aires', inst:'Hospital Garrahan',                amb:2,   int:0,  tele:0, ord:0 },
-    { mes:'Julio', region:'Buenos Aires', inst:'Hospital Italiano',                amb:0,   int:1,  tele:0, ord:0 },
-    { mes:'Julio', region:'Buenos Aires', inst:'Sanatorio Guemes',                 amb:1,   int:1,  tele:0, ord:0 },
+    // ── JULIO (total=814) Amb=619 Int=195 Tele=0 | LR=632 CBA=182 ──
+    { mes:'Julio', region:'Córdoba',      inst:'Centro Kuspide',                   amb:8,   int:0,   tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Clinica de Ojos Reyes-Giobellina', amb:84,  int:3,   tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Fecundart',                        amb:4,   int:0,   tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Hospital Privado',                 amb:351, int:134, tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Instituto Oulton',                 amb:66,  int:11,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Instituto Radioterapia',           amb:7,   int:3,   tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Nascentis',                        amb:1,   int:0,   tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Allende',                amb:80,  int:34,  tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Mayo',                   amb:14,  int:5,   tele:0, ord:0 },
+    { mes:'Julio', region:'Córdoba',      inst:'Sanatorio Morra',                  amb:1,   int:1,   tele:0, ord:0 },
+    { mes:'Julio', region:'Buenos Aires', inst:'Hospital Garrahan',                amb:2,   int:0,   tele:0, ord:0 },
+    { mes:'Julio', region:'Buenos Aires', inst:'Hospital Italiano',                amb:0,   int:1,   tele:0, ord:0 },
+    { mes:'Julio', region:'Buenos Aires', inst:'Sanatorio Guemes',                 amb:1,   int:3,   tele:0, ord:0 },
     // Órdenes: fuente resumen 26-06.xlsx actualizado
     { mes:'Junio', region:'Córdoba', inst:'Centro Kuspide',                     amb:3,   int:2,   tele:0, ord:0   },
     { mes:'Junio', region:'Córdoba', inst:'Clinica Central de Ojos',            amb:1,   int:0,   tele:0, ord:0   },
@@ -647,7 +646,7 @@ const origenData = {
     'Marzo':   { lr: 811, cba: 23,  total: 834 },
     'Abril':   { lr: 715, cba: 210, total: 925 },
     'Mayo':    { lr: 279, cba: 174, total: 453 },
-    'Julio':   { lr: 473, cba: 113, total: 586 },
+    'Julio':   { lr: 632, cba: 182, total: 814 },
 };
 
 // ─── ACTIVIDAD DIARIA POR MES (fuente exacta detalle xlsx) ───────────────────
@@ -711,10 +710,17 @@ const actividadDiaria = {
         {d:'16/07 Jue',v:40},
         {d:'17/07 Vie',v:33},
         {d:'18/07 Sáb',v:7},
-        {d:'20/07 Lun',v:23},
-        {d:'21/07 Mar',v:28},
-        {d:'22/07 Mié',v:29},
-        {d:'23/07 Jue',v:29},
+        {d:'20/07 Lun',v:46},
+        {d:'21/07 Mar',v:55},
+        {d:'22/07 Mié',v:58},
+        {d:'23/07 Jue',v:58},
+        {d:'24/07 Vie',v:21},
+        {d:'26/07 Dom',v:1},
+        {d:'27/07 Lun',v:20},
+        {d:'28/07 Mar',v:18},
+        {d:'29/07 Mié',v:20},
+        {d:'30/07 Jue',v:21},
+        {d:'31/07 Vie',v:19},
     ],
     'Junio': [
         {d:'01/06 Lun',v:38},{d:'02/06 Mar',v:36},{d:'03/06 Mié',v:18},{d:'04/06 Jue',v:39},
@@ -735,7 +741,7 @@ const diagData = {
     'Enero':   { onco:121, trauma:104, nefro:36,  oftalmo:58,  gineco:46,  gastro:43,  neuro:29,  cardio:18,  total:740  },
     'Febrero': { onco:97,  trauma:78,  nefro:30,  oftalmo:40,  gineco:28,  gastro:29,  neuro:31,  cardio:10,  total:598  },
     'Marzo':   { onco:177, trauma:97,  nefro:21,  oftalmo:52,  gineco:43,  gastro:51,  neuro:31,  cardio:17,  total:834  },
-    'Julio':   { onco:119, trauma:55, nefro:37,  oftalmo:46,  gineco:27,  gastro:33,  neuro:35,  cardio:19,  total:586  },
+    'Julio':   { onco:182, trauma:75, nefro:45,  oftalmo:62,  gineco:35,  gastro:41,  neuro:46,  cardio:26,  total:814  },
     'Mayo':    null,
     'Junio':   { onco:133, trauma:55,  nefro:39,  oftalmo:49,  gineco:49,  gastro:40,  neuro:26,  cardio:26,  total:693  },
 };
@@ -806,15 +812,9 @@ function procesarDatos() {
         } else { trendEl.className='kpi-trend kpi-trend-neutral'; trendEl.innerHTML=`<i class="fas fa-minus"></i> Primer mes`; }
     } else { trendRow.style.display='none'; }
 
-    // ── BADGE DATOS PARCIALES (Julio) ─────────────────────────────────────────
+    // ── BADGE DATOS PARCIALES ─────────────────────────────────────────────────
     const parcialBadge = document.getElementById('kpi-parcial-badge');
-    if (parcialBadge) {
-        if (currentMes === 'Julio') {
-            parcialBadge.style.display = 'flex';
-        } else {
-            parcialBadge.style.display = 'none';
-        }
-    }
+    if (parcialBadge) parcialBadge.style.display = 'none';
 
     // ── BADGE VOLUMEN ─────────────────────────────────────────────────────────
     const volEl=document.getElementById('kpi-total-vol-alert');
