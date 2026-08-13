@@ -3,524 +3,729 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tablero Gerencial de Derivaciones - APOS La Rioja</title>
-    
+    <title>Tablero Gerencial de Derivaciones — APOS La Rioja 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{aposTeal:'#009e8e',aposOrange:'#f59e0b'},fontFamily:{sans:['Poppins','sans-serif']}}}}</script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        aposTeal: '#00a896',
-                        aposOrange: '#f59e0b',
-                    },
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-body { 
-    font-family: 'Poppins', sans-serif; 
-    background-color: #f4f4f6; 
+/* ═══════════════════════════════════════════════════
+   APOS LA RIOJA — TABLERO GERENCIAL DE DERIVACIONES
+   Diseño: profesional, limpio, humanizado (2026)
+═══════════════════════════════════════════════════ */
+
+:root {
+    --teal:        #009e8e;
+    --teal-light:  #e6f7f5;
+    --teal-dark:   #007a6e;
+    --orange:      #f59e0b;
+    --orange-light:#fef3c7;
+    --red:         #ef4444;
+    --red-light:   #fef2f2;
+    --green:       #22c55e;
+    --green-light: #f0fdf4;
+    --slate-900:   #0f172a;
+    --slate-700:   #334155;
+    --slate-500:   #64748b;
+    --slate-300:   #cbd5e1;
+    --slate-100:   #f1f5f9;
+    --slate-50:    #f8fafc;
+    --white:       #ffffff;
+    --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md:   0 4px 16px rgba(0,0,0,0.07), 0 2px 6px rgba(0,0,0,0.04);
+    --shadow-lg:   0 10px 32px rgba(0,0,0,0.09), 0 4px 12px rgba(0,0,0,0.05);
+    --radius:      14px;
+    --radius-sm:   8px;
 }
 
-.card { 
-    background-color: white; 
-    border-radius: 1rem; 
-    padding: 1.5rem; 
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); 
-    border-left: 5px solid #00a896;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(160deg, #eef4f7 0%, #f0f5f4 50%, #edf4f7 100%);
+    min-height: 100vh;
+    color: var(--slate-700);
 }
 
-.tab-btn { 
-    padding: 0.5rem 1.25rem; 
-    border-radius: 0.5rem; 
-    font-weight: 600; 
-    font-size: 0.875rem; 
-    transition: all 0.2s; 
-    cursor: pointer; 
+/* ── NAVBAR ─────────────────────────────────────── */
+.navbar {
+    background: var(--white);
+    border-bottom: 1px solid #e2eceb;
+    box-shadow: 0 2px 12px rgba(0,158,142,0.07);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
-
-.tab-btn-active { 
-    background-color: #00a896; 
-    color: white; 
-    box-shadow: 0 4px 6px rgba(0, 168, 150, 0.3); 
-}
-
-.tab-btn-inactive { 
-    background-color: white; 
-    color: #64748b; 
-    border: 1px solid #e2e8f0; 
-}
-
-.tab-btn-inactive:hover { 
-    background-color: #f8fafc; 
-    border-color: #00a896; 
-    color: #00a896; 
-}
-
-/* Indicadores de tendencia en KPI cards */
-.kpi-trend {
-    display: inline-flex;
+.navbar-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
     align-items: center;
-    gap: 0.3rem;
-    font-size: 0.7rem;
+    justify-content: space-between;
+    height: 64px;
+    gap: 1rem;
+}
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    flex-shrink: 0;
+}
+.navbar-brand img { height: 34px; }
+.navbar-title { line-height: 1.1; }
+.navbar-title h1 {
+    font-size: 0.85rem;
     font-weight: 700;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
+    color: var(--slate-900);
+    letter-spacing: -0.01em;
 }
-.kpi-trend-up {
-    background-color: #fef2f2;
-    color: #ef4444;
+.navbar-title p {
+    font-size: 0.65rem;
+    color: var(--slate-500);
+    font-weight: 500;
 }
-.kpi-trend-down {
-    background-color: #f0fdf4;
-    color: #22c55e;
+.navbar-credits {
+    font-size: 0.6rem;
+    color: var(--slate-500);
+    text-align: right;
+    line-height: 1.5;
+    display: none;
 }
-.kpi-trend-neutral {
-    background-color: #f8fafc;
-    color: #94a3b8;
-}
+.navbar-credits strong { color: var(--teal); font-weight: 600; }
+@media (min-width: 768px) { .navbar-credits { display: block; } }
 
-/* Indicadores de balance amb/int */
-.kpi-balance-alert {
-    display: inline-flex;
+/* ── FILTER BAR ─────────────────────────────────── */
+.filter-bar {
+    background: var(--white);
+    border-bottom: 1px solid #e8efee;
+    padding: 0.625rem 1.5rem;
+}
+.filter-bar-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.5rem;
+}
+.filter-label {
     font-size: 0.65rem;
     font-weight: 700;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
+    color: var(--slate-500);
+    padding-right: 0.5rem;
+    border-right: 1px solid var(--slate-300);
+    margin-right: 0.25rem;
 }
-.kpi-balance-warn {
-    background-color: #fef2f2;
-    color: #ef4444;
+
+/* ── TAB BUTTONS ────────────────────────────────── */
+.tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.375rem 0.875rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    border: none;
+    outline: none;
 }
-.kpi-balance-mid {
-    background-color: #fffbeb;
-    color: #f59e0b;
+.tab-btn-active {
+    background: var(--teal);
+    color: var(--white);
+    box-shadow: 0 3px 8px rgba(0,158,142,0.28);
 }
-.kpi-balance-ok {
-    background-color: #f0fdf4;
-    color: #22c55e;
+.tab-btn-inactive {
+    background: var(--slate-50);
+    color: var(--slate-500);
+    border: 1px solid var(--slate-300);
 }
-.monthly-card {
-    background-color: white;
-    border-radius: 1rem;
-    padding: 1.25rem;
-    box-shadow: 0 2px 12px -2px rgba(0,0,0,0.06);
-    border: 1px solid #e2e8f0;
-    border-top: 4px solid #00a896;
-    transition: transform 0.15s, box-shadow 0.15s;
-    cursor: default;
+.tab-btn-inactive:hover {
+    background: var(--teal-light);
+    border-color: var(--teal);
+    color: var(--teal-dark);
 }
-.monthly-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px -4px rgba(0,0,0,0.10);
+.tab-sep { width: 1px; height: 20px; background: var(--slate-300); margin: 0 0.25rem; }
+
+.month-select {
+    appearance: none;
+    background: var(--slate-50);
+    border: 1px solid var(--slate-300);
+    border-radius: 999px;
+    padding: 0.375rem 2rem 0.375rem 0.875rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--slate-700);
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.18s;
 }
-.monthly-card.alert {
-    border-top-color: #f87171;
-    background: linear-gradient(135deg, #fff 80%, #fff5f5 100%);
+.month-select:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(0,158,142,0.12);
 }
-.monthly-card .month-label {
-    font-size: 0.65rem;
+
+/* ── MAIN CONTAINER ─────────────────────────────── */
+.main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* ── SECTION TITLES ─────────────────────────────── */
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--slate-500);
+    margin-bottom: 0.875rem;
+}
+.section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--slate-300), transparent);
+}
+.section-title i { color: var(--teal); font-size: 0.8rem; }
+
+/* ── ALERT BANNER ───────────────────────────────── */
+.alert-banner {
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--orange);
+    background: linear-gradient(90deg, #fffbeb, #fffef8);
+    margin-bottom: 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #92400e;
+    box-shadow: var(--shadow-sm);
+}
+.alert-banner i { color: var(--orange); font-size: 0.9rem; }
+
+/* ── KPI CARDS ──────────────────────────────────── */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+.kpi-card {
+    background: var(--white);
+    border-radius: 0;
+    padding: 1.25rem 1.25rem 1rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e8efee;
+    transition: box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.kpi-card::before {
+    display: none;
+}
+.kpi-card:hover { box-shadow: var(--shadow-md); }
+.kpi-card-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--teal-light);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.75rem;
+}
+.kpi-card-icon i { font-size: 0.9rem; color: var(--teal); }
+.kpi-label {
+    font-size: 0.6rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: #94a3b8;
-    margin-bottom: 0.35rem;
+    color: var(--slate-500);
+    margin-bottom: 0.25rem;
 }
-.monthly-card .month-total {
+.kpi-value {
     font-size: 2rem;
     font-weight: 800;
+    color: var(--slate-900);
     line-height: 1;
-    color: #1e293b;
+    letter-spacing: -0.02em;
 }
-.monthly-card.alert .month-total {
-    color: #ef4444;
-}
-.monthly-card .month-indicator {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    margin-top: 0.5rem;
+.kpi-sub {
     font-size: 0.7rem;
-    font-weight: 700;
+    color: var(--slate-500);
+    font-weight: 500;
+    margin-top: 0.25rem;
 }
-.monthly-card .trend-up {
-    color: #22c55e;
-}
-.monthly-card .trend-down {
-    color: #f87171;
-}
-.monthly-card .trend-neutral {
-    color: #94a3b8;
-}
-.monthly-card .alert-badge {
+
+/* ── BADGES ─────────────────────────────────────── */
+.badge {
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
-    background-color: #fef2f2;
-    color: #ef4444;
-    font-size: 0.6rem;
-    font-weight: 700;
-    padding: 0.15rem 0.5rem;
+    padding: 0.2rem 0.55rem;
     border-radius: 999px;
-    margin-top: 0.5rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-.monthly-card .sub-breakdown {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.6rem;
-    font-size: 0.65rem;
-    color: #94a3b8;
-    font-weight: 600;
-}
-.monthly-card .sub-breakdown span {
-    display: flex;
-    align-items: center;
-    gap: 0.2rem;
-}
-
-/* Sub-rows amb/int en tarjetas mensuales */
-.mc-divider {
-    height: 1px;
-    background: #f1f5f9;
-    margin: 0.6rem 0 0.4rem;
-}
-.mc-sub-row {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-bottom: 0.3rem;
-    flex-wrap: wrap;
-}
-.mc-sub-label {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     font-weight: 700;
-    color: #94a3b8;
-    min-width: 2.5rem;
+    letter-spacing: 0.03em;
 }
-.mc-sub-val {
+.badge-green  { background: var(--green-light);  color: #15803d; }
+.badge-yellow { background: var(--orange-light);  color: #92400e; }
+.badge-red    { background: var(--red-light);    color: #b91c1c; }
+.badge-teal   { background: var(--teal-light);   color: var(--teal-dark); }
+.badge-slate  { background: var(--slate-100);    color: var(--slate-500); }
+
+.kpi-trend {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    font-size: 0.65rem; font-weight: 700;
+    padding: 0.18rem 0.55rem; border-radius: 999px; margin-top: 0.35rem;
+}
+.kpi-trend-up     { background: var(--red-light);   color: #b91c1c; }
+.kpi-trend-down   { background: var(--green-light);  color: #15803d; }
+.kpi-trend-neutral{ background: var(--slate-100);   color: var(--slate-500); }
+
+.kpi-balance-alert {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    font-size: 0.6rem; font-weight: 700;
+    padding: 0.18rem 0.55rem; border-radius: 999px;
+    margin-top: 0.3rem; letter-spacing: 0.03em;
+}
+.kpi-balance-warn    { background: var(--red-light);    color: #b91c1c; }
+.kpi-balance-mid     { background: var(--orange-light);  color: #92400e; }
+.kpi-balance-ok      { background: var(--green-light);  color: #15803d; }
+
+/* ── PANEL / CARD ───────────────────────────────── */
+.panel {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e8efee;
+    overflow: hidden;
+}
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem 0.75rem;
+    border-bottom: 1px solid var(--slate-100);
+}
+.panel-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.8rem;
     font-weight: 700;
-    color: #334155;
+    color: var(--slate-900);
 }
-.mc-sub-trend {
-    margin-left: auto;
-}
-.mc-trend {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.2rem;
-    font-size: 0.6rem;
+.panel-title i { color: var(--teal); font-size: 0.85rem; }
+.panel-body { padding: 1rem 1.25rem; }
+.panel-tag {
+    font-size: 0.62rem;
     font-weight: 700;
-    padding: 0.1rem 0.4rem;
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    padding: 0.2rem 0.6rem;
     border-radius: 999px;
 }
-.mc-trend-up   { background: #fef2f2; color: #ef4444; }
-.mc-trend-down { background: #f0fdf4; color: #22c55e; }
-.mc-trend-neutral { background: #f8fafc; color: #94a3b8; }
-</style>
+
+/* ── ORIGEN PANEL ───────────────────────────────── */
+.origen-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+.origen-item {
+    border-radius: var(--radius-sm);
+    padding: 0.875rem;
+    text-align: center;
+    border: 1px solid;
+}
+.origen-item.lr  { background: var(--teal-light);   border-color: #b2deda; }
+.origen-item.cba { background: var(--orange-light); border-color: #f9d58b; }
+.origen-item .o-label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-500); margin-bottom: 0.25rem; }
+.origen-item .o-val   { font-size: 1.5rem; font-weight: 800; line-height: 1; }
+.origen-item.lr  .o-val  { color: var(--teal-dark); }
+.origen-item.cba .o-val  { color: #b45309; }
+.origen-item .o-pct  { font-size: 0.7rem; font-weight: 600; color: var(--slate-500); }
+.origen-bar { height: 6px; border-radius: 999px; overflow: hidden; background: var(--slate-100); display: flex; gap: 1px; }
+.origen-bar-fill { height: 100%; transition: width 0.5s ease; }
+
+/* ── DX TABLE ───────────────────────────────────── */
+.dx-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--slate-50);
+    font-size: 0.75rem;
+    gap: 0.5rem;
+}
+.dx-row:last-child { border-bottom: none; }
+.dx-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dx-name { flex: 1; color: var(--slate-700); font-weight: 500; }
+.dx-bar-wrap { flex: 1; max-width: 80px; height: 5px; background: var(--slate-100); border-radius: 999px; overflow: hidden; }
+.dx-bar-fill { height: 100%; border-radius: 999px; }
+.dx-val { font-weight: 700; color: var(--slate-900); text-align: right; white-space: nowrap; min-width: 50px; }
+.dx-total-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.5rem 0 0; margin-top: 0.25rem;
+    border-top: 2px solid var(--slate-200);
+    font-size: 0.75rem; font-weight: 700; color: var(--slate-900);
+}
+
+/* ── DX RESEÑA ──────────────────────────────────── */
+.dx-resena {
+    background: linear-gradient(135deg, #f0faf9, #f8fffe);
+    border: 1px solid #c5e8e4;
+    border-radius: var(--radius-sm);
+    padding: 0.875rem;
+    margin-top: 0.875rem;
+    font-size: 0.72rem;
+    line-height: 1.6;
+    color: var(--slate-700);
+}
+.dx-resena strong { color: var(--teal-dark); }
+.dx-resena-title {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.07em; color: var(--teal-dark);
+    margin-bottom: 0.5rem;
+}
+
+/* ── MONTHLY CARDS ──────────────────────────────── */
+.monthly-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.125rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e8efee;
+    border-top: 3px solid var(--teal);
+    transition: box-shadow 0.18s, transform 0.18s;
+    cursor: default;
+}
+.monthly-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.monthly-card.alert { border-top-color: var(--red); background: linear-gradient(160deg, #fff 75%, #fff5f5); }
+.monthly-card .month-label {
+    font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--slate-500); margin-bottom: 0.3rem;
+}
+.monthly-card .month-total {
+    font-size: 2rem; font-weight: 800; line-height: 1;
+    color: var(--slate-900); letter-spacing: -0.02em;
+}
+.monthly-card.alert .month-total { color: var(--red); }
+.monthly-card .month-indicator {
+    display: flex; align-items: center; gap: 0.3rem;
+    margin-top: 0.4rem; font-size: 0.65rem; font-weight: 700;
+}
+.monthly-card .alert-badge {
+    display: inline-flex; align-items: center; gap: 0.2rem;
+    background: var(--red-light); color: #b91c1c;
+    font-size: 0.58rem; font-weight: 700;
+    padding: 0.15rem 0.5rem; border-radius: 999px;
+    margin-top: 0.4rem; text-transform: uppercase;
+}
+.mc-divider { height: 1px; background: var(--slate-100); margin: 0.5rem 0 0.4rem; }
+.mc-sub-row { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.25rem; flex-wrap: wrap; }
+.mc-sub-label { font-size: 0.62rem; font-weight: 700; color: var(--slate-500); min-width: 2.5rem; }
+.mc-sub-val { font-size: 0.78rem; font-weight: 700; color: var(--slate-700); }
+.mc-sub-trend { margin-left: auto; }
+.mc-trend {
+    display: inline-flex; align-items: center; gap: 0.2rem;
+    font-size: 0.58rem; font-weight: 700;
+    padding: 0.1rem 0.4rem; border-radius: 999px;
+}
+.mc-trend-up     { background: var(--red-light);    color: #b91c1c; }
+.mc-trend-down   { background: var(--green-light);  color: #15803d; }
+.mc-trend-neutral{ background: var(--slate-100);    color: var(--slate-500); }
+
+/* ── CARD (legacy compat) ───────────────────────── */
+.card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e8efee;
+    border-left: 4px solid var(--teal);
+}
+
+/* ── CHART CONTAINERS ───────────────────────────── */
+.chart-wrap { position: relative; }
+
+/* ── INFO NOTE ──────────────────────────────────── */
+.info-note {
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-sm);
+    padding: 0.625rem 0.875rem;
+    font-size: 0.67rem;
+    color: var(--slate-500);
+    line-height: 1.5;
+    margin-top: 0.75rem;
+}
+.info-note i { color: var(--teal); margin-right: 0.25rem; }
+.info-note strong { color: var(--slate-700); }
+
+    </style>
 </head>
-<body class="bg-slate-50 min-h-screen pb-12">
+<body>
 
-    <nav class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-3">
-                <img src="data:image/png;base64,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" alt="Logo APOS" class="h-12 w-auto object-contain">
-                <div class="h-10 w-px bg-slate-200 mx-2 hidden md:block"></div>
-                <div>
-                    <h1 class="text-xl font-800 text-slate-800 tracking-tight leading-none">MONITOR DE DERIVACIONES</h1>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Gestión 2026 | APOS La Rioja</p>
-                    <p class="text-[9px] text-slate-400 font-semibold mt-1 tracking-wide">
-                        <span class="text-aposTeal font-bold">Análisis y Desarrollo:</span> Testa, F.
-                        &nbsp;·&nbsp;
-                        <span class="text-aposTeal font-bold">Fuente de Datos:</span> Pelliza, M. · Pistek, G.
-                    </p>
-                </div>
-            </div>
-            
-            <div class="flex flex-wrap items-center justify-center gap-2">
-                <button id="btn-mes-Total" onclick="setMes('Total')" class="tab-btn tab-btn-active">Total 2026</button>
-                <div class="h-6 w-px bg-slate-200 mx-1"></div>
-                <select id="select-mes" onchange="setMes(this.value)" class="bg-white border border-slate-200 rounded-md px-3 py-1.5 text-sm font-semibold text-slate-600 focus:outline-none focus:ring-2 focus:ring-aposTeal">
-                    <option value="Total">Seleccionar Mes</option>
-                    <option value="Enero">Enero</option>
-                    <option value="Febrero">Febrero</option>
-                    <option value="Marzo">Marzo</option>
-                    <option value="Abril">Abril</option>
-                    <option value="Mayo">Mayo</option>
-                    <option value="Junio">Junio</option>
-                    <option value="Julio">Julio</option>
-                </select>
-            </div>
-        </div>
-    </nav>
-
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-6 mb-8">
-            <div class="flex items-center gap-4 flex-1">
-                <div class="w-12 h-12 bg-aposTeal/10 rounded-full flex-shrink-0 flex items-center justify-center text-aposTeal">
-                    <i class="fas fa-stethoscope text-xl"></i>
-                </div>
-                <p class="text-sm text-slate-500 leading-relaxed italic">
-                    "Las derivaciones se realizan por estricta indicación del médico tratante sobre aquellos diagnósticos, que por su complejidad, no pueden resolverse en nuestro medio."
-                </p>
-            </div>
-            <div class="h-px w-full md:h-12 md:w-px bg-slate-100"></div>
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-slate-100 rounded-full flex-shrink-0 flex items-center justify-center text-slate-400">
-                    <i class="fas fa-users text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none mb-1">Total de Afiliados</p>
-                    <p class="text-xl font-800 text-slate-700 leading-none">129.302</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="flex justify-center mb-8">
-            <div class="bg-white p-1 rounded-xl shadow-sm border border-slate-200 flex gap-1">
-                <button id="btn-dest-General" onclick="setDestino('General')" class="tab-btn tab-btn-active">General</button>
-                <button id="btn-dest-Córdoba" onclick="setDestino('Córdoba')" class="tab-btn tab-btn-inactive">Córdoba</button>
-                <button id="btn-dest-Buenos Aires" onclick="setDestino('Buenos Aires')" class="tab-btn tab-btn-inactive">Buenos Aires</button>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <!-- Volumen Total -->
-            <div id="kpi-total-card" class="card border-l-slate-400">
-                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Volumen Total</p>
-                <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                    <h3 class="text-4xl font-extrabold text-slate-800" id="kpi-total">0</h3>
-                    <div id="kpi-total-pct-container" class="flex items-baseline gap-1 transition-opacity duration-300">
-                        <span class="text-lg font-bold text-slate-400" id="kpi-total-pct">(0%)</span>
-                    </div>
-                </div>
-                <div id="kpi-total-trend-row" class="mt-2" style="display:none;">
-                    <span id="kpi-total-trend" class="kpi-trend kpi-trend-neutral"></span>
-                </div>
-                <div id="kpi-parcial-badge" style="display:none;" class="mb-3 flex items-center gap-2 bg-amber-50 border border-amber-300 text-amber-800 text-xs font-bold px-4 py-2 rounded-xl">
-                <i class="fas fa-triangle-exclamation"></i>
-                Datos parciales — 01 al 23 de julio de 2026. Los valores reflejan los primeros 23 días del mes.
-            </div>
-            <div id="kpi-total-vol-alert" class="kpi-balance-alert kpi-balance-warn mt-2" style="display:none;">
-                    <i class="fas fa-circle-exclamation"></i> Alto volumen ≥ 450
-                </div>
-            </div>
-            
-            <!-- Ambulatorias -->
-            <div class="card">
-                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Ambulatorias</p>
-                <div class="flex items-baseline gap-2">
-                    <h3 class="text-4xl font-extrabold text-slate-800" id="kpi-amb">0</h3>
-                    <span class="text-lg font-bold text-slate-400" id="kpi-amb-pct">(0%)</span>
-                </div>
-                <div class="mt-1 text-[10px] font-bold text-slate-300 uppercase tracking-widest">Ref. esperada: 80%</div>
-                <div id="kpi-amb-trend-row" class="mt-2" style="display:none;">
-                    <span id="kpi-amb-trend" class="kpi-trend kpi-trend-neutral"></span>
-                </div>
-                <div id="kpi-amb-balance-alert" class="kpi-balance-alert mt-2" style="display:none;"></div>
-            </div>
-
-            <!-- Internación -->
-            <div id="kpi-int-card" class="card border-l-aposOrange">
-                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Internación</p>
-                <div class="flex items-baseline gap-2">
-                    <h3 class="text-4xl font-extrabold text-slate-800" id="kpi-int">0</h3>
-                    <span class="text-lg font-bold text-slate-400" id="kpi-int-pct">(0%)</span>
-                </div>
-                <div class="mt-1 text-[10px] font-bold text-slate-300 uppercase tracking-widest">Ref. esperada: 20%</div>
-                <div id="kpi-int-trend-row" class="mt-2" style="display:none;">
-                    <span id="kpi-int-trend" class="kpi-trend kpi-trend-neutral"></span>
-                </div>
-                <div id="kpi-int-balance-alert" class="kpi-balance-alert mt-2" style="display:none;"></div>
-            </div>
-
-            <!-- Teleconsulta -->
-            <div class="card border-l-slate-300">
-                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Teleconsulta</p>
-                <div class="flex items-baseline gap-2">
-                    <h3 class="text-4xl font-extrabold text-slate-800" id="kpi-tele">0</h3>
-                    <span class="text-lg font-bold text-slate-400" id="kpi-tele-pct">(0%)</span>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- ── ORIGEN DE DERIVACIONES ───────────────────────────────────── -->
-        <div class="mt-6 bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
-            <div id="origen-panel"></div>
-        </div>
-
-        <!-- ── ACTIVIDAD DIARIA ──────────────────────────────────────────── -->
-        <div id="actividad-diaria-section" class="mt-6 bg-white rounded-2xl p-5 border border-slate-100 shadow-sm" style="display:none;">
-            <h3 class="text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
-                <i class="fas fa-calendar-days text-aposTeal"></i>
-                Actividad por Día
-            </h3>
-            <div class="h-[260px]"><canvas id="chartDiario"></canvas></div>
-        </div>
-
-                <!-- TARJETAS MENSUALES - Solo visible en Total 2026 -->
-        <div id="monthly-cards-section" class="mb-8" style="display:none;">
-            <div class="flex items-center gap-3 mb-4">
-                <h3 class="font-bold text-slate-700 uppercase text-sm tracking-widest">Resumen por Mes</h3>
-                <div class="flex items-center gap-2 ml-auto">
-                    <span class="flex items-center gap-1 text-[10px] font-bold text-slate-400">
-                        <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-400"></span> ≥ 450 derivaciones
-                    </span>
-                    <span class="flex items-center gap-1 text-[10px] font-bold text-slate-400 ml-3">
-                        <span class="text-red-400">▲</span> Sube vs mes ant.
-                    </span>
-                    <span class="flex items-center gap-1 text-[10px] font-bold text-slate-400">
-                        <span class="text-green-500">▼</span> Baja vs mes ant.
-                    </span>
-                </div>
-            </div>
-            <div id="monthly-cards-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                <!-- Generado por JS -->
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div class="bg-aposTeal rounded-2xl p-6 text-white shadow-lg flex items-center justify-between">
-                <div>
-                    <p class="text-xs font-bold uppercase tracking-wider opacity-80">Consultas Autorizadas</p>
-                    <h4 class="text-3xl font-extrabold" id="kpi-ordenes-total">0</h4>
-                </div>
-                <div class="text-right">
-                    <p class="text-xs font-bold uppercase tracking-wider opacity-80">Promedio Consultas / Derivación</p>
-                    <h4 class="text-3xl font-extrabold" id="kpi-ordenes-prom">0</h4>
-                </div>
-            </div>
-            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex items-center gap-4">
-                <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-slate-400">
-                    <i class="fas fa-info-circle text-xl"></i>
-                </div>
-                <p class="text-sm text-slate-500 leading-tight">
-                    El <span class="font-bold text-slate-700">Promedio Consultas / Derivación</span> indica cuántas órdenes de práctica se emiten por cada paciente ambulatorio derivado.
+<!-- ═══ NAVBAR ═══════════════════════════════════════════════════════════ -->
+<nav class="navbar">
+    <div class="navbar-inner">
+        <div class="navbar-brand">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAA8CAYAAADPLpCHAAAh7ElEQVR42u2deXhb1bX2f+voSLYl2c5ImAnzDG2ZLtACBVIaZpoGKBDLoWEsFFpKgZRy014oUKBM5ZYyxJLDVELKVMZAmQqhBcIUhjJmgDAkTuJY58iSzjnr/nG2E9uxE0m2g+n37efxA7Esae+1373Wu4a9jjDAw8lU7ywa7BVI/M/J1LJgQL7j9hER8ZZORfW4AVxKO+gisN4DeRGxH4fo7HiqrZ21PJzMcBGKSShuixY3BdYFvwqIAkWwc8DnSOxDsN4PpCqbbFisfEWjPT2UQLwY+KPR4nYI66FBDaiEP6KI5YF8CfY8xX4LqVqeqGDOMpALcTPJCJq7BPRgJHpIPJVfMBDfk719RMQqtmRAj19Le6RgfQ48BdbdSOR5saoX10xoHUBZ1tqQXx/VXSDYG/SbwLYQDANi3fZSQQogi4G3QV5FZJZivSpEF8ZTTnGgBeQ2jxDUqQNvWzTYDXQfYCfQjUCrAGtVmUoRpBWYA/IGIs+C9TrE5sdT2eIgAHRsG7T4COiGYJ+rUnttIrVU/wMA3XnkwJoN9u+R6GPxlJPvVxmm6yNI+w6odwYE+4CONgAud+RBPgXrGcRuDjTyfLLR7XdgZ9O1IhRHCl4KgiNAtwOt7wHApYyCmfOziN0E0efjqaz3lQDabU7GCNong3chEAHrNSR6dDyVf/8/DNAdolwM1i2IfZ1q9WeJxr5pa6e53hLNbYH6J0IwDnTz/tsv+RKsGUikGexX4qm+AzubHooluWGo9wMIToRglwoPXm9z/gys+8CaqhJ7NZFy/J7+yhqQrQXQ/C7gnxaCGSDYGfVOcjO1Fv+RQ0eA/wu0eIeQ28rJrNMHy1ZTLeqejBb/Bv65oFv0r/LRdcA/FS0+gBbOdzNVw91pI/tCLcUSZwe0cCd410OwZ/+CGUDXA/9U8O4VCie7mZrkWgN0NhOPoUEj6MiuOA+OhPzmA8FoB8mwQ1rg/VF02Y7OtFopT8vV4mZiW6KFq1DvctAtB2qPwv3QkeBNRou3ESzb1c0kI+VbkngU8oeixQwEY4DqgTSDoBui3hVo4Uo3U71hNlM/sIDO3j4Cwdsx5E/dtYpujgbHOc21kX5dZSAKBIME1BYEB4L3ZwkKG5RMxKeNFEsK26Jec2jZtG4tzbcagoNQbzqaP8pJx0vGhNucjIgWfoR6adBvDbRP1glHCfAnoYW0RfvGAwpoy8vWof7ZoVnrabP9SRLkd+vX5QVoGK4aNEMg2B31znEy8Zo1m+w60WDZt9FiEwS7rz1gdNF8o8G7SiiMdzPVa6QLTiYeRdsnof6loMO+AhlHINgPLf7GSVcPGxBAv3KKgPp7htSit03RDcBvcDMJu7++9+NcUQFvkJHqCAQTBe9Ip3lorwBty9QB+c1R/2oI9hhAilGKatgY/BtQ/1A30ztdWjp9GKLFXVF/Cuj6X7GMjxO8sxyDp34V3jZ7VoemAE2uQXsdBsUdcs0j+uV79zu3FbACBt3QetT7qag7sjfnOaLtW6DFP0PwzUEy5+Hg/Q7yu/cG6io3NxL8C0BHDYIJx8A/UbSwQ78COpcZioi/G+gBJQhtAzQ4Q9WN95tPKAxCQHdEd/w9ejHbMfDPhmC/r1YzryLRrVHvGihstKoTOAy0OB6C738F1Kh3PBEc7jQPkX4z+0puJOpdADqkNM7mj4PiX4CZff3uggdgvQp67wDQy2iYGNBNjXktF3g1oIe5mdqH46k2f6VDNUQInCMgOHZwgXnFQdwN9X7mZhLnxVNOYaUD7tZBMJ4wzV6pTOeDPA8yB4IWsNYPnUrdq0I+LqCHoIVb+wXQ7rSR4C/9rklvlnhqdQganOBm4s/EU26hT5GVdgWrvgk00+9nX9USbY9CsFmYNPCPM0mOMkCoeyv+BsD8lb/KrQv++aGJH5QjAsExUJzRNm3IP2onLDO/9jcJs3+V6R6wHkailyGxV/yaWq92/EKcdD0i+WooHI76kyHYqXztrzsJxb37BdAatNULwUmgZcYgg7Got2+2ecTMZMPiPs0hPmGxD/gDtLl54A03UzsHzd8F3iUQHFXG4d1CKO7SAWgnMxS07QcQ7MigHrou6l1kBe3jgY7U5xagQyuMgc1Aoj+Jp/JLQ5G2AZBoXALQ7jQPmS64b6PF6aDblDnXalT36jOg3UydoLlDQPeoQGAjwP+5pdl/AssrnYMVq2LHvz44LoADy7BRb8SEm18+5HslR0fiqbYAeNfNxC5Hi9/uJTTZ0zpjaDB65b/bRxiqEe2j+H2QRSAfgiwxB9oGrTVFQBv18TsEdA9R/1vAU+Y3dahEys9mSRtip0Mw9zwSDcvUydS/LfiPgL9N+dMNtuoHDZ3f0JjO2soEFnwH9Q+YMkXunTKlspSfVRVDle8qnFrG2x4RS6ZWFu6LzgHvDdADy1jqJgCLm4Yj2vojE2/ugx9szQXresR6HOz5KjV5QRRUUCcKwTposDcEkyD4TuU8XesgGO9k6p5NpJb7IBVaQckpdgusnl0mU62Bk46+Bb6WTztkvT4B2m2uFwJnLATb9GFvEuCfcO7o6semkHPXoj31qDBpHki83VL30zLfVQ1QI7k4BAdTea2DD9ZMJHqRUvNKIrUsCEHiduOqfJxtHvmxBMufE7zJEPyoQqUD6L5CcUNgHqrLQb3y5x8MF82PcTKJ1xMpx1t9xMpahFrvlX8I5eM+AVo1P0oIJvXddOoBgj/WbR42I96wZG0BughSEaAtvAhIspLzIOJtjOpOlYYeIHKnin2+bQ//tOr4havXdg2LAOa5mfhZaOED8P4HqKrElIN3VNv09a/BXfQpKg5ouQcyAsE5QsF1M4mMrVWtscZe9lpiMxV7/3LlK0ihYkA7zcmIBO0nQ/CNfnA+6sE7C3WeARavLUCLaGUcR3N1YRivrGNQgAA02Dr0HSo6Si8gkclXfFz4dMqUhaU7zCm33c1U34TqRmHFWtkKyEb9PSO57A1gzQfmAhU4hjoC9S4F/yCP/N/ctP0BWFlEXAhaIdIGdjbQ6vZkatHCSiRUMaBFC6PBn9APjk2HFtgd9cfkmte5s6bhy7UB6IJo+cmY1j8NAbK7AFuVuZmfLp0+DJzl36yMbshyiFyG1C6YMqWl/ChQqr3VTVddEpZ26q4VgHELtFirxFoE7ynwK8xsahz0YAjGAu0gHkoByIK3FAoLLcnPcjPRmRD5AKqWxVOtJfP2ihwFN1Nnof54c3uiv0YVBCnVtrVS6KKQh/I0dDZTJ9G4ux0a/GIN6f3uYCyCfBTLqQ3B1hVq53uQ6NPxhpbKVQbRL8G6o8Lw5gjwhyRTbQESuQOkrxc1hDDpVBvG4nUT0G9AcDBanIJ6j6CFx9HsDW7aPszNVK2Xa06u0UmsUEPnvwF6amnvl9aVtGKNIt8Piqlspvaa/Ufcq37I00oqNS0GapcpzQA82ePhh2VV30A0CGL68mEHEF5I8KohGAq5fVD/Qgi2LXPv5iOx11G3qsJinhzI9HjKdfqCoGRjVt1M7Ak0WFxBHUY9MFzhI6V6thD8PizmH5D650gY69ahwLdAUqj/byW40c1UT1cSLYlUS/8A2knHY2h+EgQbl+bEWDeGXrc/uQRwVqHBBEsKdyu60FP9kSrHa2mgLosCKOzr+PatvYC9RSS4FGhB3e1Brww1CBuGUZmyx3NI5GNRrTfAKFeZLQHrw/6xTDXzBP918L9X5jujqB8HSKSWq5upno7qbuA3MLBF/ZiE3c5o8Q/gjxf8q9109d/jje1unwEtUtwKDQ4vLUYonyOR24F2NDgedLMSzsAOqD/22cXH3PJfw+96XuE8hW0HQEpbm5+ewD4PuB5ogWAI6LeBSgupCoj1aLyhrehm4lGQ6gqSEjkk0i8hzbxdtby62Da3Mq0pyS6cPBM/D80D/sT+86VWO2og2D/0AYLfu5maa+KpnFMxh3YztR1Xq9YrMV76V8V+V4l+BNZtlJbEiEJwiqq7eUT4CKgw+TFYhsyByLMdrjSV3awR+qmyrapgSYW+kwUS6xY9WYbYk8G+FOTztSdTrQP/ArRwjZupGlURoEUACntB0FDa++QDFfu6RMotJlKOj8RuAeuVEt2Xb0Gx4R+Lx2GJzBD4+GsKZhfsJl+qzGYHRdAKGtOoDX6/XFuTiJcAqYTHB6CFVaMn+RaI/Q/Yp4G8tRaVTwL8RtQ7x83Eq8sGdDZdU4MWT+128XV13PkOkdhK3iexT8D6YxiqKUUbBMdCflNLmC9wO4PrilUpwwPrJiTaVNuwPOQYGrSH4amyRy2q/XMbQrMjyy/86bC42tZjSLDR9USqH4DowRC5AOSNtQRsG4JT0cLZZd1YEQHB27m04n0AyYMVI2hvcNPRRjcdbSRwUyCjwnhqSZLfHIIjn2v5AQI3C7zxNQKzgvUiYl/VJTJh1Xgroz7lmljd0W1etx9m5m8OWsEHSR6J9BplqUm1BfHGwnys+B+QqsPAvhisFzoVTQ2UqGvB/4lQ3KFkp9BpqqlHC2eVXrurNVCczKreTzlcMIL6P7XIP21ZMlsDTSvsTB+SQWsRzI8j9tlBUP1JWCbZsfpoISxur0gTnaK67Emg4nZqbqY2grqHh/tT9milhCxuvKEtAOa7zUN/i+auBX9LVHcOqzF1a2BLc2EiaqJe/eAb6Aaof5KbqT17jeBwp40Af9n+4T3Asr68HxwZ3Qj1j31+8ZGv7zn8vodE9QztJTLR/7CsKCvugzUL7HM0MuTdZKprxrO+cZG23mq/Zw56mbIJdhUtHuM2J6+ON2TL1nhOplbQ/I4V7GPHdn4GkaWl/nW8YakCy4CXgJec5hFToT0pGmyGFoaDjDDFUutDsEWYVNGtqKjWBIHgcChMWyOgNcjWCcEpFcZf++zDQHA0WkhbwjsK16pyVRi+GeAvlrJjawWIpJHoxQHVC5InrJq+L/oQ8ktxK5CnDcFZaOFNNzNkZryMTq6hZilsDd4NJp5eiUTeQGJZyFXmwTUsDghr3l9b1XLURSA/EvWPAP+XpYV3e9LS3v6rBXS2uVZE278DuudXaME3hOCY5xcfdfFew++drugEhT0H+hRJ6cHiAORjiNyIRG+Np3JLV+v3inyI8hmwRUWyUO96cM5yMonHe+vv1hUsSQstbIEWLzUtuirRzi4SeSre0Bq4maqt0OK+ZX6Oj9hPxFOFeT1q89RyH/g8Oy15sxXkF6JeUwVX0wRk69UC2tLCumGqd6118ekt4nEqFGZGLP7h+zQBuzKwgXxfkDVpwDxY7yFWBqyHlNh7iVR2zVpTYp+h3kumX10l0bMtQW8R1ZucTM0NWInFiQmrUlv3tvXAb6uB/DjwfmXMeYUUUN6EiLnMrHuA3ghaTiw7j/pHESaseh3JCdnAbU7MRL0XgMMq2LbaXgHtNg8Vgraxg6NfhI5A/ROe/fKIf+414r5HAuU+oPv1py0V1i9LyPAFPWviBbIiTCh5kLlmHkvDBIK8BzILsd9QkvMTqcW6ppsYHaNuYra4fGpsOlo8uLT6lh7lsT54k0WD/fELM920/QoSaQF1gADVIXhfbgt6GOi+ld8BNE6uyONI9bKQbmgO1Ke85IwNUpLGVY14UimvgdW0MdDc0LAtakUkfSBYwOEi3o0bBC2vLbSGr5LcCeBqVU4u4zNft6ABWVV4AkURWoyIXgc5CKyiEjhITX5JPlLc6KQWE2otL0/i+QDRx8B7BvTwPsgkFjaG5DtGA+bNIdXQx9AEJRZ2rUH0X4D113jD0sA4VYsJD3s5FjICur+bSd4TT2VXKzDR9k2NBa7EmDt2z2G6ZATNHzp4uvkA6Dqof9Y9SyeeGU+1dwnw27V1bHvHPeV6/nlVXfDmYQettkYinirkgU+6Kva+DU+qXFvzGdD9yytD7dXnqy7/xn1pUwXrHrDfWWmwIkvQwAnrmsuiSuPQ3Fw3U3O9L3VLaxu+6MYI6iy0fUfU++8KHdcA5M2eNbRV2Bj1z6fygpyB4tLjUP9O4LFVtnTQdPEpgXY0LMHN1DyO6qPg/4BB2Wgm5M4q0csTqVynU2wtBD4FymworXXgT0bz34mw5AY3U/0v1GtD7PBCb5A7CrxJ5iZQBXtpfY5En7V7iFdaou640Pko9RT3ORMkxoStYSGaBL/RydQ8m0jlcnyNhxDPqgRTzJWsQdifQ7IQuQ6in3amVYq9VCjOAv8bFXxoFQQHoroHeAtBl6B+FTDKtISo1NFXkAeU6Gx7VUEXR0FwPKUV7+cR+9rwwS59ohND0eJ5po/Emv52jODvlc0MfzK5oshbvlYaGqAm1YLbXPs26l8J/p/KN+EDOjyINCPR6YlUWxenOdmY9Z109G40+GGJdT097WEtKxJk/dGtXpaBdXsitTxvd9XO8ShaOLPEVk8K1v1gXxbGXisfTiZhC4GAd+WanVAdhnqTLXFeA1r4Go94Q5u6meoZKBuANxlIDoJpBWDdj0SmFN0qp3vAQRWQ6udR9zrwL2Lt1EGvbhTDa2X2y1Dsyt2E4pbgn0BJlzilFawb+gpmgETK8RB7Bljvlhjx2BP19mlrWmdVJv11A3Wq3UGi10LkNr76isIgvFluX/BQPL+o/rRlvR3EIhK9Gazn+WofCGLqZmK/jTfm2unsjLiZRAQNJoStSUtS8zMV++X+o2zRz0GaKa3ssAaCSRGrrbbTyr6+mjqVc5HohRD5XchdvzIwP4zYKaj+YPz41f+xH1R/gding/XEVyR+D6xHEPscteq+7BQ5MMX76m0HwQ9L87hlCUSarpjb3m+djuINbYrY94L1VomHc2/wDnQzdTL0mqsrPEQyiEDd3oLELgfr2pATrtXRDpG7kOiZGhnyUTy1fI0ArZ24DF+GvoPYPwfrRQa0RLRHMD+ARE8Sqf93YsIXdAG0k05Ug/dL0ya2FDU/Dal6stJedL2qCCs5F7GuoKRgr9aj/gWQHzV8yEjKDX0JOLYlPoNoxFO5nBK7GCKp0g92n03jAohMRqKnxVP5uYkTSu+JUtvwBaqxOUj0GIj8iXKzTJXNdxHYFyHR0/z48IU1YXeolYAOdVRxR/NILinpA8W6I57KFvp7qskJLapEngRrTolHYCfwD9jX+qDce3IKvG2Vmq9eiyPRmGv3peZBxJ4AVhPI0oEx6eKC9RRiN6qVvDaeal9e2XyzxFP5BSqxXyH2eeEdyoHQ1uKC9TRin4LUXBFP5b+sHb9qcyXLaU5Wo/5JpbeGte5X7NcGjuVXfYFYt4bNWdY4qtDg5Cltl42kjDSvwHxLuP2VQ8YMSupdm2rTeKrwKlJ9OmIfCZGb+4+GSBasRyGSQmLjPKn9e6Khtc+P80ikcsuV+PVI9DBDQ2b3D7AlC5EZEGlAYkepJO6Lp9q83mGfiR2Cev9bWrmefI7YE+KpwqyB3FA3k1gHbZ8WPqR9jSPvS9Wv9x52/5aKHFlKmEeEP1uWdc1rBx/o8zUYTiZZJRT2Rf3Dw6ck6MYmlluKVfJB2oB5IC9B5CGk6imVqtZEw8BEPZ3moYK2byJa/H7Y8ku3B9YzN2XWxAI8M99PwHoesR6BqifjqWxJTXbEzVRtBv76Jd3QEGsp1LwTTy0f0Af0ONNGIcHSTVG/pIiLit0yZtjdixyJl5Kc8C348tVDx3zdLt3iZOoiUBgh4b3A7Q1Qtg9bsgVVIcDFh4gD+gHwDsjbIO+ANVck1lLT6TkvAz3c5lGoZquF4jqobmFKZreCYD2wRhPWoCwCXQBWG+hCRD4B+QCsBSqxxYmG8ub7tYzd/v8RjrbmERIhqEPdWrQQBYkAHhIvqMRaI57vVJ+4bPAdzOaRUQjqIIgIds4Dp65hUb8oybIAPWVK1/8OlvHv38C6IxE3QNc74+s3//4aS28KPYmhP/5/95CLm+ZMeu63VlTlThHmA6OAMYR1qgLMAZ4F3gf2BvbtTYmoMi0xkSUAbpptgeOAu+ONvNnFPKXZADgaeCqA15KNK1/LNmFZwoGE+f/meCOtc9MwEqolvI61D7AB4Z21FxSe8zwW1U8yGiFNXMK64f2AOsL+xv9QmJ1o7BoijNmw7Bb2BL7biaMWgQ+BfwKfxBvDqEPbLRCx2R34PpD5eC7ztp/SZU3bAEd1clgVcIDXFV5OTqStM9Nra0IiwkFGzn+ON7JojWY9jUXYKu27If0A4G3gaYW3UZIiNAAvxBt5pdt7twQOAu5WaBH4AcpyVWaKUI8wwcjLcFs+BV5DeTc+sWtWU0I5rw80AjPV56XEj7t810bAj1iZhVYT5ntX4UXxaMFmF2BsL0vNodwOJBF+SM+1Rott4FzC+om53V5sR3gcWAJcbUD7gtmcI4AzDTi3Mf8GGGbA/74RwCLgXmBJ21Qss9hfAEOyTZydnNjFC94ImAKMteAYYCnAsptBhO2Aawkvxz4AtI6EOoELgeMJb568awCfEngxanMKsNBJIwKnAOcT9vb4AkgBZwv8krCJTRdAE4L/POAjs44o4Q2ZBea97wJEbKqAnwM/BKzRm3AJXdPX2wO/Np/TURQRB0YI3OU0cV68cWXsNiLUEs5pL+DDtlu4s3bSakx3Exbhg5KuM3N81fz3EOAs4GfAm8A5Zh3dO1dtbV57lvCG9vGET+r6OzDcvOYSNsexzO8shBucNNcnGlc+ByMbHqzTDZ72JMKx5vB2jE0I92shHY+/Cps8riPwhEY4XWDTTliqB0YDH5jPWY7wELCZkenH3T4fYG4Hyh9U5ZzuvpaCK8JOwB5mcfeb1zYHdgc+UZgmMN38fhzwE5RxCB3x0zYBIhY7AQcbYe1nCZuYje4SWDba6VgnzU2JRvyozRCB35rFfdEhPIGJZgMuBmYotEoI+P2Ai4BfO2nOk3AjxgEzgMkKOQnBuW8PG9x5fGiAugTFJpTDlcAEZyoXJk5EzWHeA3gOOE6Ev4SOWJfRSnig3mJFMT7HAmcA04CXYUXScldzcGYCx0ZsHjFAW9W0CoiwK/AHA8irDBjFbPoEAU/75ie1A2cby2SZuR0BnC5gO01cnpgYlioIbAwcCcwCviFhD5UXukekDOCfWxF2hW8Dl4lwuCp3i/CEee0A4HqUnyC8arCUNWtzgJ+qrrJ/QQegC4mJtPZi0qqMes8rFBONeMCcz69kDsC6v1ixcNw0jtEErfHGlRthNMmxQFHhFwI3AYe6aW6IN3bR0ovNYn8m8Fp2Ki+KcLgBzZPADkZ4Q411eFRhaifakHfT3G/M5NUC9wCvGxB5qhRzOfIjTmdB9hZuW3O4a+U6Wm/hqajNo8A2CLbThAccCnwO/IawqeT326bybu2JXRIhAdDWWR5umnuAE40165BRjVnTv8xn3QUc1HYLf+lJS3eSaRT4Xbyxi4Wd4zTxK/O46I36AGgFsp3mvsRJ86GE2jYlwm3AvOxUMJQnaQ7A74CjnCZeTExcpTllths2nhBhMbDbrKVMO/Dn4V4aLPUkuxXz6gmzHYDewU3T3Z36IAh4HHjPmLKrBY5w07wE/FPhXT8orU+bCBsa7Xw3yhyE+43WeshowhUxSIUmgQ2BX1sWVxlqcy1hVq8D0BsaepNe1C1NHm9E3TSzzCneSZVnRPgbcLIIo+NxXjBreEOVxawuC6cw61LYcV0sS9jMHKwwEyZsTHgz+X9VeUHCNR0VsZhG1w5DFlDnpBmGgggJA+YY5hb09KPB+CJjgJMVXpVQcx9n2fytB9OKoV/fBGardr4iZhIdRnM6Tf3rdCUbKTpp/mb8nc2BeWJRZ/59hyrPi3AdcK4IaWOZuuSNnDTDzD5WA98ze/nkmHNKnkYMONpN0/nReL7CYx1Oz3bASd1+9pfwLn8L4fP/bgC2NFz0QYErbIsha/rm5eHp3c+YwhkaGsCHjRYd04PAFwGXG0dnmuFbt9IVuNXm85aNbuzZVzJ/nzAbe4XhlFGztruAu0TYZm6616kPV6Fxp/U41RLOA/5CyPHuEkEFTgCSCk+r4AM3E15LOih7axczXw/cJDBThJmGTqSAW1RDLj52LDYw3lC4lzW0eDOAXWSlo9edD9oG1Fk/WHuFQeb0LzPas8ZtAgk5/8bAnSoUDK1U4ESnqUsGtwq4UmCmhHJ4gpBO3qfwWBnNqmLA4d3wOhEY3aGhHzDOSOdRAHwTbfg8m+ZKCTdmPaNtzzYcadrqvjkijAAmALXAhVYoiJjZjKNFuKs7T1R4WkK+eg5wWeDRYnX1aVsMJdjdaWJOYuIqWnYDc2DmGa3ttE5letTiIQO63cx6fz5SOY2eS1brJNSYBfPzEPCgwmyBdQ2/rhe4TMK5RI2mOUMiPNZJS7cDDxpnaFvzvl8ppDu0qCVsbrSzL3CtaXJTb9ZwvJvmjc7Oo9FuOeAzYDM7QrKTo9XdOnpmfT1dHqgG2rWMtgFtt65QgIH5/nrjfI40+1swVmkocCjCH1nZDtkHHjdBg+HAJGCawiWJxrIKmxzjg8zurj87YNIeb1y1Ed/SW8FNMxQYpcr7hrO0Ok3MF+F7xnPtdWSngghjgZ2Af3QywR7wjHGC9sk28UAXc9mI76a5E/i3Kk/XntTVdCp8KmFo6lQRnsymmZtsDE33wQeTIIySLAb+5TQRE2EbhfeLOdz605jn3Mp8ibClsULRXgA915z6FgX1A7y6E1FnKmCxN+HBnmU0kWU261/AngK7L7iah1eEm+D2eCNvOGmSAgkTiXlq4U28Vx/FNs6UEvaB6+gJ2Aa8aBza28xrK4m5T8Gy+bvx+L/tpHk0YcKJJsy5NdCmoVO+ENjFSVOTaAzB64S+0e7AXFUWllJJ6zQhImxkFNSbwIcIOxM6gC8ZOXZY/ZeBvQW+6zatALQHzIg38pTTRNTQr6MF7l92Ky8M+XFZhmJZT5jtAPSmbpoje4g4vATsD/xKhIfcNI8bT3M/4+H/cbXc2SJpIhFPacgbO9OGKgmpxNkSeul048JLjElapWw575GrtrnKUJEmC5rdNO8bDXks8F/GgrxvQlNNAu9Fa7jHTfMJYRuu8YRmLr8aoRXijV0r8gxfPAG4U2EynSr2BIYYi3XcsCE8ucoJmUt209FcTBgV+u2QGCcRNseZBFyvoTy10+dtYOjZMU4TsxOdwpzJSeCmucvw6GsEbnPTPGcAta+xBE0o1xkt+XuBK900D5jQ4lizN+chOPR8S8kG9nXTjDL/v41xhD3gfAVHQnm/BUzUzlfilKgI/03Y++ShHjh+0U1zFfAt4DdRixM6olgljKiZV/fGQrkOQI8xXmp3ynEMYcuA3cypPNX83gamoyvCLz1mHyV8kM8OwPmLwO3Md9+agrvpaB4GrhJhW8ookRw2CbJTmWVZnGk86huNJowZM3iVwiOJRgInzYeG355teFfOmNrXgUwPXvjqnNsO521X4NoObdfJA18CNAG/M2vqIo/tp4DbxHsI15vIyGGGCtQAfzcRpJUaMc2nElq2A0QYDnzZ7dAvctJcZOjZL01ITAzg7kFpVp+C2DxgYuJnmFxAYEB9u8IDyUZwevYlqkxuoGNv2oyl/W17ntnVVWxmwm6/92FRbWOXPfTdNA8ZB3h/emgD7PosjEeYAjSJ8FOnid8kJpZU0lsDXMKqj/f45P8A2lLp+Ayuer4AAAAASUVORK5CYII=" alt="APOS La Rioja">
+            <div class="navbar-title">
+                <h1>Tablero Gerencial de Derivaciones</h1>
+                <p>Gestión 2026 | APOS La Rioja</p>
+                <p style="font-size:0.58rem;color:var(--teal);font-weight:600;margin-top:1px;">
+                    <span style="color:var(--slate-500);font-weight:500;">Análisis y Desarrollo:</span> Testa, F. &nbsp;·&nbsp;
+                    <span style="color:var(--slate-500);font-weight:500;">Datos:</span> Pelliza, M. · Pistek, G.
                 </p>
             </div>
         </div>
+        <div class="navbar-credits" style="display:block;">
+            <div style="font-size:0.6rem;color:var(--slate-500);text-align:right;line-height:1.6;">
+                <span style="color:var(--teal);font-weight:600;">Afiliados totales:</span> 129.302
+                &nbsp;|&nbsp;
+                <span style="color:var(--teal);font-weight:600;">Período:</span> Ene–Ago 2026
+            </div>
+        </div>
+    </div>
+</nav>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-            <div class="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="font-800 text-slate-800 uppercase text-sm tracking-wider">Top Instituciones por Volumen</h3>
-                    <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded font-bold uppercase">Ambulatorio vs Internación</span>
-                </div>
-                <div class="h-[400px]">
-                    <canvas id="chartInstituciones"></canvas>
+<!-- ═══ FILTER BAR ════════════════════════════════════════════════════════ -->
+<div class="filter-bar">
+    <div class="filter-bar-inner">
+        <span class="filter-label"><i class="fas fa-calendar-alt" style="margin-right:0.3rem;"></i>Período</span>
+        <button id="btn-mes-Total" onclick="setMes('Total')" class="tab-btn tab-btn-active">
+            <i class="fas fa-chart-line"></i> Total 2026
+        </button>
+        <div class="tab-sep"></div>
+        <select id="select-mes" onchange="setMes(this.value)" class="month-select">
+            <option value="Total">— Seleccioná un mes —</option>
+            <option value="Enero">Enero</option>
+            <option value="Febrero">Febrero</option>
+            <option value="Marzo">Marzo</option>
+            <option value="Abril">Abril</option>
+            <option value="Mayo">Mayo</option>
+            <option value="Junio">Junio</option>
+            <option value="Julio">Julio</option>
+            <option value="Agosto">Agosto ⚠ parcial</option>
+        </select>
+        <div class="tab-sep"></div>
+        <span class="filter-label" style="border-right:none;padding-right:0;"><i class="fas fa-map-marker-alt" style="margin-right:0.3rem;"></i>Destino</span>
+        <button id="btn-dest-General"     onclick="setDestino('General')"     class="tab-btn tab-btn-active">General</button>
+        <button id="btn-dest-Córdoba"     onclick="setDestino('Córdoba')"     class="tab-btn tab-btn-inactive">Córdoba</button>
+        <button id="btn-dest-Buenos Aires" onclick="setDestino('Buenos Aires')" class="tab-btn tab-btn-inactive">Bs. Aires</button>
+    </div>
+</div>
+
+<!-- ═══ MAIN ══════════════════════════════════════════════════════════════ -->
+<main class="main">
+
+    <!-- BANNER DATOS PARCIALES -->
+    <div id="kpi-parcial-badge" class="alert-banner" style="display:none;">
+        <i class="fas fa-triangle-exclamation"></i>
+        <span>Datos parciales — 01 al 09 de agosto de 2026. Los valores reflejan solo los primeros 9 días del mes.</span>
+    </div>
+
+    <!-- ── KPIs ─────────────────────────────────────────────────────────── -->
+    <div class="section-title"><i class="fas fa-gauge-high"></i> Indicadores Clave</div>
+    <div id="kpi-total-vol-alert" class="badge badge-teal" style="display:none;margin-bottom:0.75rem;"></div>
+
+    <div class="kpi-grid">
+
+        <!-- Total -->
+        <div class="kpi-card" id="kpi-total-card">
+            <div class="kpi-card-icon"><i class="fas fa-file-medical-alt"></i></div>
+            <div class="kpi-label">Total Derivaciones</div>
+            <div class="kpi-value" id="kpi-total">0</div>
+            <div id="kpi-total-pct-container" style="display:none;">
+                <div class="kpi-sub">
+                    <span id="kpi-total-pct"></span> del padrón
                 </div>
             </div>
-
-            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="font-800 text-slate-800 uppercase text-sm tracking-wider">Perfil Diagnóstico</h3>
-                    <span id="tag-total-dx" class="text-[10px] bg-aposTeal/10 text-aposTeal px-2 py-1 rounded font-bold uppercase"></span>
-                </div>
-                <div class="h-[300px]">
-                    <canvas id="chartDiagnosticos"></canvas>
-                </div>
-                <div class="mt-4 space-y-1" id="dx-table"></div>
+            <div id="kpi-total-trend-row" style="display:none;">
+                <span id="kpi-total-trend" class="kpi-trend kpi-trend-neutral"></span>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="font-800 text-slate-800 uppercase text-sm tracking-wider">Intensidad de Consultas por Derivación</h3>
-                <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded font-bold uppercase">Consultas por Derivación Amb.</span>
+        <!-- Ambulatorias -->
+        <div class="kpi-card" id="kpi-amb-card" style="--card-top:var(--teal);">
+            <div class="kpi-card-icon" style="background:#e6f9f7;"><i class="fas fa-person-walking" style="color:var(--teal);"></i></div>
+            <div class="kpi-label">Ambulatorias</div>
+            <div class="kpi-value" id="kpi-amb">0</div>
+            <div class="kpi-sub" id="kpi-amb-pct">(0%)</div>
+            <div id="kpi-amb-trend-row" style="display:none;">
+                <span id="kpi-amb-trend" class="kpi-trend kpi-trend-neutral"></span>
             </div>
-            <div class="h-[300px]">
-                <canvas id="chartOrdenes"></canvas>
+            <div id="kpi-amb-balance-alert" style="display:none;" class="kpi-balance-alert"></div>
+        </div>
+
+        <!-- Internación -->
+        <div class="kpi-card" id="kpi-int-card">
+            <div class="kpi-card-icon" style="background:#fef2f2;"><i class="fas fa-bed" style="color:#ef4444;"></i></div>
+            <div class="kpi-label">Internación</div>
+            <div class="kpi-value" id="kpi-int">0</div>
+            <div class="kpi-sub" id="kpi-int-pct">(0%)</div>
+            <div id="kpi-int-trend-row" style="display:none;">
+                <span id="kpi-int-trend" class="kpi-trend kpi-trend-neutral"></span>
+            </div>
+            <div id="kpi-int-balance-alert" style="display:none;" class="kpi-balance-alert"></div>
+        </div>
+
+        <!-- Teleconsulta -->
+        <div class="kpi-card" id="kpi-tele-card">
+            <div class="kpi-card-icon" style="background:#f0f4ff;"><i class="fas fa-video" style="color:#6366f1;"></i></div>
+            <div class="kpi-label">Teleconsultas</div>
+            <div class="kpi-value" id="kpi-tele">0</div>
+            <div class="kpi-sub" id="kpi-tele-pct">(0%)</div>
+        </div>
+
+        <!-- Consultas autorizadas -->
+        <div class="kpi-card" style="--card-top:#6366f1;">
+            <div class="kpi-card-icon" style="background:#f0f4ff;"><i class="fas fa-clipboard-check" style="color:#6366f1;"></i></div>
+            <div class="kpi-label">Consultas Autorizadas</div>
+            <div class="kpi-value" id="kpi-ordenes-total" style="font-size:1.6rem;">0</div>
+            <div class="kpi-sub">
+                Prom. <span id="kpi-ordenes-prom" style="font-weight:700;color:var(--slate-900);">—</span> consultas/deriv. amb.
             </div>
         </div>
 
-        <div class="mt-6 bg-white rounded-2xl border border-slate-200 p-6">
-            <h3 class="font-800 text-slate-800 uppercase text-sm tracking-widest mb-4 flex items-center gap-2">
-                <i class="fas fa-book-medical text-aposTeal"></i> Detalle de Patologías Complejas
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <h4 class="font-bold text-slate-700 text-sm flex items-center gap-2 mb-1">
-                        <span class="w-3 h-3 rounded-full bg-aposTeal"></span> Oncología
-                    </h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">Adenocarcinomas, Cáncer de Pulmón, Linfomas, Tumores del SNC, etc.</p>
-                </div>
+    </div>
 
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <h4 class="font-bold text-slate-700 text-sm flex items-center gap-2 mb-1">
-                        <span class="w-3 h-3 rounded-full bg-aposOrange"></span> Traumatología Compleja
-                    </h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">Artroplastia de cadera, Escoliosis, Fracturas expuestas de pelvis, etc.</p>
-                </div>
+    <!-- ── ORIGEN + ACTIVIDAD ────────────────────────────────────────────── -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
 
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <h4 class="font-bold text-slate-700 text-sm flex items-center gap-2 mb-1">
-                        <span class="w-3 h-3 rounded-full bg-yellow-400"></span> Neurología y Neurocirugía
-                    </h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">Esclerosis Múltiple, Cirugía de base de cráneo, Parkinson, ACV, etc.</p>
-                </div>
-
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <h4 class="font-bold text-slate-700 text-sm flex items-center gap-2 mb-1">
-                        <span class="w-3 h-3 rounded-full bg-[#94a3b8]"></span> Oftalmología
-                    </h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">Desprendimiento de retina, Queratocono, Cirugía de glaucoma, etc.</p>
-                </div>
-
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <h4 class="font-bold text-slate-700 text-sm flex items-center gap-2 mb-1">
-                        <span class="w-3 h-3 rounded-full bg-pink-400"></span> Patologías Raras
-                    </h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">Fibrosis Quística, Mucopolisacaridosis, Miastenia Gravis, etc.</p>
-                </div>
-
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <h4 class="font-bold text-slate-700 text-sm flex items-center gap-2 mb-1">
-                        <span class="w-3 h-3 rounded-full bg-indigo-400"></span> Trasplantes
-                    </h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">Trasplante Renal, Córnea, Hepático, Médula Ósea, etc.</p>
-                </div>
-
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100 md:col-span-2">
-                    <h4 class="font-bold text-slate-700 text-sm flex items-center gap-2 mb-1">
-                        <span class="w-3 h-3 rounded-full bg-[#cbd5e1]"></span> Otras Patologías
-                    </h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">Renales, Autoinmunes, Gastroenterológicas (Enfermedad de Crohn), Ginecológicas (Endometriosis, Fertilidad), etc.</p>
-                </div>
+        <!-- Origen -->
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title"><i class="fas fa-map-marked-alt"></i> Origen de Derivaciones</div>
             </div>
-            
-            <div class="mt-4 pt-3 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-2">
-                <div class="text-[10px] text-slate-400 font-medium text-center md:text-left">
-                    FUENTE DE DATOS: Pelliza, M.; Pistek, G. (Dirección de Sistemas) | ANÁLISIS Y DESARROLLO: Testa, F.
-                </div>
-                <div class="text-[10px] text-slate-400 font-medium">
-                    POBLACIÓN DE REFERENCIA: <span class="font-bold">129.302 AFILIADOS</span>
-                </div>
+            <div class="panel-body">
+                <div id="origen-panel"></div>
             </div>
         </div>
-    </main>
 
-    <script>
+        <!-- Actividad diaria -->
+        <div id="actividad-diaria-section" class="panel" style="display:none;">
+            <div class="panel-header">
+                <div class="panel-title"><i class="fas fa-calendar-days"></i> Actividad por Día</div>
+                <span class="panel-tag" id="tag-actividad-mes"></span>
+            </div>
+            <div class="panel-body" style="padding-bottom:0.75rem;">
+                <div style="height:220px;"><canvas id="chartDiario"></canvas></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── GRÁFICOS PRINCIPALES ──────────────────────────────────────────── -->
+    <div class="section-title"><i class="fas fa-chart-bar"></i> Derivaciones por Institución</div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title"><i class="fas fa-hospital"></i> Ambulatorias vs Internación</div>
+            </div>
+            <div class="panel-body">
+                <div style="height:280px;"><canvas id="chartInstituciones"></canvas></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title"><i class="fas fa-stethoscope"></i> Intensidad de Consultas por Derivación</div>
+            </div>
+            <div class="panel-body">
+                <div style="height:280px;"><canvas id="chartOrdenes"></canvas></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── PERFIL DIAGNÓSTICO ────────────────────────────────────────────── -->
+    <div class="section-title"><i class="fas fa-microscope"></i> Perfil Diagnóstico</div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title"><i class="fas fa-chart-pie"></i> Distribución por Categoría</div>
+                <span class="panel-tag" id="tag-total-dx">Total: —</span>
+            </div>
+            <div class="panel-body">
+                <div style="height:260px;"><canvas id="chartDiagnosticos"></canvas></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title"><i class="fas fa-list-ul"></i> Detalle y Análisis</div>
+            </div>
+            <div class="panel-body">
+                <div id="dx-table"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── TARJETAS MENSUALES ────────────────────────────────────────────── -->
+    <div id="monthly-cards-section" style="display:none;">
+        <div class="section-title"><i class="fas fa-calendar-check"></i> Resumen por Mes</div>
+        <div id="monthly-cards-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-8 gap-3 mb-6"></div>
+    </div>
+
+</main>
+
+<script>
+// ─── RESEÑA DE DIAGNÓSTICOS ──────────────────────────────────────────────────
+function buildResena(dd, otros, mes) {
+    const total = dd.total;
+    if (!total) return '';
+    const oncoP  = (dd.onco  / total * 100).toFixed(1);
+    const traP   = (dd.trauma/ total * 100).toFixed(1);
+    const nefP   = (dd.nefro / total * 100).toFixed(1);
+    const oftP   = (dd.oftalmo/total * 100).toFixed(1);
+    const otrosP = (otros     / total * 100).toFixed(1);
+    const periodo = mes === 'Total' ? 'el período 2026' : mes;
+
+    // Dynamic insight
+    let insight = '';
+    if (dd.onco / total > 0.20) {
+        insight = `La <strong>Oncología</strong> concentra más de 1 de cada 5 derivaciones, reflejando la alta demanda de tratamientos de quimioterapia, radioterapia y cirugías oncológicas de alta complejidad que no pueden resolverse localmente.`;
+    } else {
+        insight = `El perfil diagnóstico es diverso, con predominio de patologías oncológicas, seguidas por cuadros de alta complejidad quirúrgica y crónica que requieren centros especializados de referencia.`;
+    }
+
+    let nefNote = '';
+    if (dd.nefro / total > 0.05) {
+        nefNote = ` La <strong>Nefrología y Trasplante Renal</strong> (${nefP}%) mantiene una presencia significativa, explicada por los seguimientos de pacientes en lista de espera y pos-trasplante que demandan atención especializada continua en centros de alta complejidad.`;
+    }
+
+    return `<div class="dx-resena">
+        <div class="dx-resena-title"><i class="fas fa-notes-medical"></i> Análisis del Perfil Diagnóstico — ${periodo}</div>
+        <p>${insight}${nefNote}</p>
+        <p style="margin-top:0.5rem;">La <strong>Traumatología y Ortopedia</strong> (${traP}%) agrupa principalmente reemplazos articulares, cirugías de columna y fracturas complejas. La <strong>Oftalmología</strong> (${oftP}%) responde en gran medida a la demanda de cirugías retinales y tratamientos de glaucoma avanzado. El <strong>${otrosP}% restante</strong> corresponde a un espectro amplio de patologías de menor frecuencia individual pero que en conjunto demuestran la variedad y complejidad del perfil sanitario de nuestra población afiliada.</p>
+    </div>`;
+}
+
+
 Chart.register(ChartDataLabels);
 Chart.defaults.color = '#64748b';
 Chart.defaults.font.family = "'Poppins', sans-serif";
@@ -528,7 +733,7 @@ Chart.defaults.font.family = "'Poppins', sans-serif";
 let currentMes = 'Total';
 let currentDestino = 'General';
 const TOTAL_AFILIADOS = 129302;
-const MESES_ORDEN = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio'];
+const MESES_ORDEN = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto'];
 const UMBRAL_ALERTA = 450;
 
 // ─── DATOS EXACTOS (fuente: archivos 26-01 al 26-06.xlsx) ────────────────────
@@ -637,6 +842,18 @@ const dataEstricta = [
     { mes:'Junio', region:'Córdoba', inst:'Sanatorio Morra',                    amb:1,   int:0,   tele:0, ord:4   },
     { mes:'Junio', region:'Buenos Aires', inst:'Hospital Italiano',             amb:2,   int:0,   tele:0, ord:0   },
     { mes:'Junio', region:'Buenos Aires', inst:'Sanatorio Guemes',              amb:0,   int:2,   tele:0, ord:0   },
+
+    // ── AGOSTO (total=340) Amb=281 Int=59 Tele=0 | LR=307 CBA=33 ──
+    // ⚠ DATOS PARCIALES: 01 al 09 de agosto de 2026
+    { mes:'Agosto', region:'Córdoba',      inst:'Clinica de Ojos Reyes-Giobellina', amb:31,  int:2,  tele:0, ord:0 },
+    { mes:'Agosto', region:'Córdoba',      inst:'Hospital Privado',                 amb:158, int:39, tele:0, ord:0 },
+    { mes:'Agosto', region:'Córdoba',      inst:'Instituto Oulton',                 amb:36,  int:5,  tele:0, ord:0 },
+    { mes:'Agosto', region:'Córdoba',      inst:'Instituto Radioterapia',           amb:4,   int:1,  tele:0, ord:0 },
+    { mes:'Agosto', region:'Córdoba',      inst:'Nascentis',                        amb:1,   int:0,  tele:0, ord:0 },
+    { mes:'Agosto', region:'Córdoba',      inst:'Sanatorio Allende',                amb:44,  int:10, tele:0, ord:0 },
+    { mes:'Agosto', region:'Córdoba',      inst:'Sanatorio Mayo',                   amb:4,   int:2,  tele:0, ord:0 },
+    { mes:'Agosto', region:'Córdoba',      inst:'Sanatorio Morra',                  amb:2,   int:0,  tele:0, ord:0 },
+    { mes:'Agosto', region:'Buenos Aires', inst:'Sanatorio Guemes',                 amb:1,   int:0,  tele:0, ord:0 },
 ];
 
 // ─── ORIGEN: derivaciones por sede (fuente exacta detalle xlsx) ──────────────
@@ -647,6 +864,7 @@ const origenData = {
     'Abril':   { lr: 715, cba: 210, total: 925 },
     'Mayo':    { lr: 279, cba: 174, total: 453 },
     'Julio':   { lr: 632, cba: 182, total: 814 },
+    'Agosto':  { lr: 307, cba: 33,  total: 340 },
 };
 
 // ─── ACTIVIDAD DIARIA POR MES (fuente exacta detalle xlsx) ───────────────────
@@ -694,7 +912,16 @@ const actividadDiaria = {
         {d:'20/05 Mié',v:11},{d:'21/05 Jue',v:18},{d:'22/05 Vie',v:13},{d:'26/05 Mar',v:23},
         {d:'27/05 Mié',v:29},{d:'28/05 Jue',v:27},{d:'29/05 Vie',v:41},
     ],
-    'Julio': [
+    'Agosto': [
+        {d:'01/08 Sáb',v:99},
+        {d:'02/08 Dom',v:2},
+        {d:'03/08 Lun',v:80},
+        {d:'04/08 Mar',v:4},
+        {d:'05/08 Mié',v:61},
+        {d:'06/08 Jue',v:43},
+        {d:'07/08 Vie',v:51},
+    ],
+        'Julio': [
         {d:'01/07 Mié',v:79},
         {d:'02/07 Jue',v:53},
         {d:'03/07 Vie',v:60},
@@ -742,6 +969,7 @@ const diagData = {
     'Febrero': { onco:97,  trauma:78,  nefro:30,  oftalmo:40,  gineco:28,  gastro:29,  neuro:31,  cardio:10,  total:598  },
     'Marzo':   { onco:177, trauma:97,  nefro:21,  oftalmo:52,  gineco:43,  gastro:51,  neuro:31,  cardio:17,  total:834  },
     'Julio':   { onco:182, trauma:75, nefro:45,  oftalmo:62,  gineco:35,  gastro:41,  neuro:46,  cardio:26,  total:814  },
+    'Agosto':  { onco:87,  trauma:32, nefro:25,  oftalmo:29,  gineco:13,  gastro:12,  neuro:10,  cardio:10,  total:340  },
     'Mayo':    null,
     'Junio':   { onco:133, trauma:55,  nefro:39,  oftalmo:49,  gineco:49,  gastro:40,  neuro:26,  cardio:26,  total:693  },
 };
@@ -814,7 +1042,14 @@ function procesarDatos() {
 
     // ── BADGE DATOS PARCIALES ─────────────────────────────────────────────────
     const parcialBadge = document.getElementById('kpi-parcial-badge');
-    if (parcialBadge) parcialBadge.style.display = 'none';
+    if (parcialBadge) {
+        if (currentMes === 'Agosto') {
+            parcialBadge.style.display = 'flex';
+            parcialBadge.querySelector('span').textContent = 'Datos parciales — 01 al 09 de agosto de 2026. Los valores reflejan solo los primeros 9 días del mes.';
+        } else {
+            parcialBadge.style.display = 'none';
+        }
+    }
 
     // ── BADGE VOLUMEN ─────────────────────────────────────────────────────────
     const volEl=document.getElementById('kpi-total-vol-alert');
@@ -943,27 +1178,23 @@ function renderOrigen(totalGlobal) {
     const cbaPct = grandTotal>0?(cbaTotal/grandTotal*100).toFixed(1):'0.0';
 
     el.innerHTML = `
-        <div class="flex items-center gap-2 mb-2">
-            <i class="fas fa-map-marker-alt text-aposTeal text-sm"></i>
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Origen de Derivaciones</span>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-            <div class="bg-aposTeal/5 border border-aposTeal/20 rounded-xl p-3 text-center">
-                <div class="text-[10px] font-bold uppercase text-slate-400 mb-1"><i class="fas fa-hospital-alt mr-1"></i>Casa Central — La Rioja</div>
-                <div class="text-2xl font-extrabold text-aposTeal">${lrTotal.toLocaleString()}</div>
-                <div class="text-sm font-bold text-slate-500">${lrPct}%</div>
+        <div class="origen-grid">
+            <div class="origen-item lr">
+                <div class="o-label"><i class="fas fa-hospital-alt"></i> Casa Central — La Rioja</div>
+                <div class="o-val">${lrTotal.toLocaleString()}</div>
+                <div class="o-pct">${lrPct}%</div>
             </div>
-            <div class="bg-aposOrange/5 border border-aposOrange/20 rounded-xl p-3 text-center">
-                <div class="text-[10px] font-bold uppercase text-slate-400 mb-1"><i class="fas fa-building mr-1"></i>Delegación — Córdoba</div>
-                <div class="text-2xl font-extrabold text-aposOrange">${cbaTotal.toLocaleString()}</div>
-                <div class="text-sm font-bold text-slate-500">${cbaPct}%</div>
+            <div class="origen-item cba">
+                <div class="o-label"><i class="fas fa-building"></i> Delegación — Córdoba</div>
+                <div class="o-val">${cbaTotal.toLocaleString()}</div>
+                <div class="o-pct">${cbaPct}%</div>
             </div>
         </div>
-        <div class="mt-2 h-2 rounded-full overflow-hidden bg-slate-100 flex">
-            <div style="width:${lrPct}%;background:#00a896;" class="transition-all duration-500"></div>
-            <div style="width:${cbaPct}%;background:#f59e0b;" class="transition-all duration-500"></div>
+        <div class="origen-bar">
+            <div class="origen-bar-fill" style="width:${lrPct}%;background:var(--teal);"></div>
+            <div class="origen-bar-fill" style="width:${cbaPct}%;background:var(--orange);"></div>
         </div>
-        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+        <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:var(--slate-500);margin-top:0.3rem;font-weight:600;">
             <span>La Rioja ${lrPct}%</span><span>Córdoba ${cbaPct}%</span>
         </div>`;
 }
@@ -1113,23 +1344,25 @@ function renderChartDx() {
             const sumaVerif = rows.reduce((s, r) => s + r.v, 0);
             const ok = sumaVerif === dd.total;
 
-            dxTableEl.innerHTML = rows.map(r => `
-                <div class="flex items-center justify-between text-xs py-0.5 border-b border-slate-50">
-                    <span class="text-slate-500">${r.l}</span>
-                    <span class="font-bold text-slate-700">${r.v.toLocaleString()}
-                        <span class="text-slate-400 font-normal">(${dd.total > 0 ? (r.v / dd.total * 100).toFixed(1) : '0.0'}%)</span>
-                    </span>
+            const colors = ['#009e8e','#f59e0b','#94a3b8','#e07bb5','#7c6d8e','#5b9bd5','#007A72','#d95f5f','#cbd5e1'];
+            dxTableEl.innerHTML = rows.map((r, i) => `
+                <div class="dx-row">
+                    <div class="dx-dot" style="background:${colors[i % colors.length]};"></div>
+                    <span class="dx-name">${r.l}</span>
+                    <div class="dx-bar-wrap"><div class="dx-bar-fill" style="width:${dd.total>0?(r.v/rows[0].v*100).toFixed(0):0}%;background:${colors[i%colors.length]};"></div></div>
+                    <span class="dx-val">${r.v.toLocaleString()} <span style="font-weight:500;color:var(--slate-500);font-size:0.65rem;">(${dd.total>0?(r.v/dd.total*100).toFixed(1):0}%)</span></span>
                 </div>`).join('') +
-                `<div class="flex items-center justify-between text-xs pt-1 mt-1 border-t-2 border-slate-200 font-bold">
-                    <span class="text-slate-700">Total analizado</span>
-                    <span class="text-slate-900">${dd.total.toLocaleString()} <span class="text-slate-400 font-normal">(100%)</span></span>
+                `<div class="dx-total-row">
+                    <span>Total analizado</span>
+                    <span>${dd.total.toLocaleString()} <span style="font-size:0.65rem;font-weight:500;color:var(--slate-500);">(100%)</span></span>
                 </div>` +
                 (mesesSinDx.length ? `
-                <div class="mt-2 text-[10px] text-slate-400 bg-slate-50 rounded p-1.5 leading-tight">
-                    <i class="fas fa-circle-info mr-1"></i>
-                    <strong>${mesesSinDx.join(' y ')}</strong> (${totalSinDx.toLocaleString()} derivaciones) no cuentan con datos de diagnóstico en el detalle.
-                    Total 2026 completo: <strong>${(dd.total + totalSinDx).toLocaleString()}</strong> derivaciones.
-                </div>` : '');
+                <div class="info-note" style="margin-top:0.5rem;">
+                    <i class="fas fa-circle-info"></i>
+                    <strong>${mesesSinDx.join(' y ')}</strong> (${totalSinDx.toLocaleString()} derivaciones) sin datos de diagnóstico.
+                    Total 2026: <strong>${(dd.total + totalSinDx).toLocaleString()}</strong>
+                </div>` : '') +
+                buildResena(dd, otros, currentMes);
         }
     }
 
@@ -1235,6 +1468,7 @@ function renderMonthlyCards() {
 }
 
 window.onload = () => procesarDatos();
+
 
 </script>
 </body>
